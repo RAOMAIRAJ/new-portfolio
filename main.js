@@ -1,22 +1,28 @@
 /* ==========================================================================
-   RAO.DEV — 3D WEBGL, WORKFLOW SIMULATOR & INTERACTION ENGINE
+   RAO.DEV V2 — LUXURY 3D, LENIS, WORKFLOW LAB, ROI SLIDER, PREVIEW & AI ENGINE
    ========================================================================== */
+
+let lenisInstance = null;
 
 document.addEventListener('DOMContentLoaded', () => {
     initPreloader();
+    initSmoothScroll();
     initCustomCursor();
     initNavigation();
     initKineticHeadline();
     initGlobalWebGL();
     initHero3DCore();
     initWorkflowSimulator();
+    initComparisonSlider();
     initPortfolioFilters();
+    initDevicePreviewModal();
     init3DTiltCards();
     initScrollRevealsAndCounters();
+    initAIAssistant();
     initContactSystem();
 });
 
-/* ==================== 1. CYBER PRELOADER ==================== */
+/* ==================== 1. LUXURY PRELOADER ==================== */
 function initPreloader() {
     const preloader = document.getElementById('preloader');
     const fill = document.getElementById('preloader-fill');
@@ -26,17 +32,17 @@ function initPreloader() {
 
     let progress = 0;
     const stages = [
-        'MOUNTING THREE.JS WEBGL STAGE...',
-        'LOADING GHL WORKFLOW BLUEPRINTS...',
-        'SYNCING LIVE CLIENT DEPLOYMENTS...',
-        'SYSTEM READY // RAO.DEV'
+        'MOUNTING 3D WEBGL STAGE...',
+        'LOADING GHL WORKFLOW ENGINE...',
+        'PREPARING LIVE CLIENT VAULT...',
+        'READY // RAO.DEV'
     ];
 
-    const interval = setInterval(() => {
-        progress += Math.floor(Math.random() * 18) + 12;
+    const timer = setInterval(() => {
+        progress += Math.floor(Math.random() * 20) + 14;
         if (progress >= 100) {
             progress = 100;
-            clearInterval(interval);
+            clearInterval(timer);
             if (fill) fill.style.width = '100%';
             if (percentEl) percentEl.textContent = '100%';
             if (statusEl) statusEl.textContent = stages[3];
@@ -46,17 +52,59 @@ function initPreloader() {
                 document.querySelectorAll('.hero-section .reveal-up, .hero-section .reveal-scale').forEach(el => {
                     el.classList.add('is-visible');
                 });
-            }, 220);
+            }, 200);
         } else {
             if (fill) fill.style.width = `${progress}%`;
             if (percentEl) percentEl.textContent = `${progress}%`;
             const idx = Math.min(Math.floor(progress / 30), stages.length - 1);
             if (statusEl) statusEl.textContent = stages[idx];
         }
-    }, 85);
+    }, 75);
 }
 
-/* ==================== 2. CUSTOM PRECISION CURSOR & MAGNETIC BTNS ==================== */
+/* ==================== 2. LENIS SMOOTH INERTIA SCROLL + PROGRESS ==================== */
+function initSmoothScroll() {
+    const progressBar = document.getElementById('scroll-progress-bar');
+
+    function updateProgress() {
+        if (!progressBar) return;
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+        progressBar.style.width = `${Math.min(100, Math.max(0, pct))}%`;
+    }
+
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    if (typeof Lenis !== 'undefined') {
+        lenisInstance = new Lenis({
+            duration: 1.12,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smoothWheel: true
+        });
+
+        function raf(time) {
+            lenisInstance.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // Smooth anchor navigation with Lenis
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', (e) => {
+                const targetId = anchor.getAttribute('href');
+                if (!targetId || targetId === '#') return;
+                const targetEl = document.querySelector(targetId);
+                if (targetEl) {
+                    e.preventDefault();
+                    lenisInstance.scrollTo(targetEl, { offset: -75 });
+                }
+            });
+        });
+    }
+}
+
+/* ==================== 3. CUSTOM PRECISION CURSOR & MAGNETIC ==================== */
 function initCustomCursor() {
     if (window.matchMedia('(hover: none), (pointer: coarse)').matches) return;
 
@@ -76,27 +124,32 @@ function initCustomCursor() {
         dot.style.top = `${mouseY}px`;
     }, { passive: true });
 
-    function renderCursor() {
+    function tick() {
         ringX += (mouseX - ringX) * 0.18;
         ringY += (mouseY - ringY) * 0.18;
         ring.style.left = `${ringX}px`;
         ring.style.top = `${ringY}px`;
-        requestAnimationFrame(renderCursor);
+        requestAnimationFrame(tick);
     }
-    requestAnimationFrame(renderCursor);
+    requestAnimationFrame(tick);
 
-    const hoverTargets = document.querySelectorAll('a, button, .wf-node, .project-3d-card, input, textarea');
-    hoverTargets.forEach(el => {
-        el.addEventListener('mouseenter', () => ring.classList.add('is-hovering'));
-        el.addEventListener('mouseleave', () => ring.classList.remove('is-hovering'));
+    const interactiveSelector = 'a, button, input, textarea, .wf-node, .comp-handle, .project-3d-card';
+    document.addEventListener('mouseover', (e) => {
+        if (e.target.closest(interactiveSelector)) {
+            ring.classList.add('is-hovering');
+        }
+    });
+    document.addEventListener('mouseout', (e) => {
+        if (e.target.closest(interactiveSelector)) {
+            ring.classList.remove('is-hovering');
+        }
     });
 
-    // Subtle magnetic pull on .magnetic buttons
     document.querySelectorAll('.magnetic').forEach(btn => {
         btn.addEventListener('mousemove', (e) => {
             const rect = btn.getBoundingClientRect();
-            const dx = (e.clientX - (rect.left + rect.width / 2)) * 0.22;
-            const dy = (e.clientY - (rect.top + rect.height / 2)) * 0.22;
+            const dx = (e.clientX - (rect.left + rect.width / 2)) * 0.2;
+            const dy = (e.clientY - (rect.top + rect.height / 2)) * 0.2;
             btn.style.transform = `translate(${dx}px, ${dy}px)`;
         });
         btn.addEventListener('mouseleave', () => {
@@ -105,43 +158,56 @@ function initCustomCursor() {
     });
 }
 
-/* ==================== 3. NAVIGATION & SCROLL SPY ==================== */
+/* ==================== 4. NAVIGATION & SCENE TELEMETRY ==================== */
+let currentSceneMode = 'core';
+
 function initNavigation() {
     const navbar = document.getElementById('navbar');
     const mobileToggle = document.getElementById('mobile-toggle');
     const mobileDrawer = document.getElementById('mobile-drawer');
     const navLinks = document.querySelectorAll('.nav-link');
     const sections = document.querySelectorAll('main section[id]');
+    const zoneLabel = document.getElementById('scene-zone-label');
 
     if (mobileToggle && mobileDrawer) {
-        mobileToggle.addEventListener('click', () => {
-            mobileDrawer.classList.toggle('open');
-        });
-        mobileDrawer.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => mobileDrawer.classList.remove('open'));
+        mobileToggle.addEventListener('click', () => mobileDrawer.classList.toggle('open'));
+        mobileDrawer.querySelectorAll('a').forEach(a => {
+            a.addEventListener('click', () => mobileDrawer.classList.remove('open'));
         });
     }
 
+    const modeLabels = {
+        core: '3D STAGE // REACTOR CORE',
+        neural: '3D STAGE // NEURAL WORKFLOW',
+        vault: '3D STAGE // PRODUCTION VAULT'
+    };
+
     window.addEventListener('scroll', () => {
         const y = window.scrollY;
-        if (navbar) {
-            navbar.classList.toggle('scrolled', y > 40);
-        }
+        if (navbar) navbar.classList.toggle('scrolled', y > 40);
 
-        let currentId = 'home';
+        let activeId = 'home';
+        let detectedMode = 'core';
+
         sections.forEach(sec => {
-            if (y >= sec.offsetTop - 220) {
-                currentId = sec.getAttribute('id');
+            if (y >= sec.offsetTop - 260) {
+                activeId = sec.getAttribute('id');
+                detectedMode = sec.dataset.scene || 'core';
             }
         });
 
+        currentSceneMode = detectedMode;
+        if (zoneLabel && modeLabels[detectedMode]) {
+            zoneLabel.textContent = modeLabels[detectedMode];
+        }
+
         navLinks.forEach(link => {
-            link.classList.toggle('active', link.getAttribute('href') === `#${currentId}`);
+            link.classList.toggle('active', link.getAttribute('href') === `#${activeId}`);
         });
     }, { passive: true });
 }
 
-/* ==================== 4. KINETIC SCRAMBLE HEADLINE ==================== */
+/* ==================== 5. KINETIC HEADLINE SCRAMBLE ==================== */
 function initKineticHeadline() {
     const target = document.getElementById('kinetic-word');
     if (!target) return;
@@ -158,13 +224,13 @@ function initKineticHeadline() {
     function scrambleTo(newText) {
         const length = newText.length;
         let frame = 0;
-        const totalFrames = 20;
+        const totalFrames = 18;
 
         const tick = setInterval(() => {
             let output = '';
             for (let i = 0; i < length; i++) {
                 const revealAt = Math.floor((i / length) * totalFrames);
-                if (frame >= revealAt + 6) {
+                if (frame >= revealAt + 5) {
                     output += newText[i] || '';
                 } else {
                     output += glyphs[Math.floor(Math.random() * glyphs.length)];
@@ -172,20 +238,20 @@ function initKineticHeadline() {
             }
             target.textContent = output;
             frame++;
-            if (frame > totalFrames + 6) {
+            if (frame > totalFrames + 5) {
                 clearInterval(tick);
                 target.textContent = newText;
             }
-        }, 32);
+        }, 30);
     }
 
     setInterval(() => {
         index = (index + 1) % phrases.length;
         scrambleTo(phrases[index]);
-    }, 3200);
+    }, 3400);
 }
 
-/* ==================== 5. GLOBAL THREE.JS 3D DEPTH FIELD ==================== */
+/* ==================== 6. SCROLL-MORPHING GLOBAL THREE.JS STAGE ==================== */
 function initGlobalWebGL() {
     const canvas = document.getElementById('bg-webgl');
     if (!canvas || typeof THREE === 'undefined') return;
@@ -195,36 +261,53 @@ function initGlobalWebGL() {
     renderer.setSize(window.innerWidth, window.innerHeight);
 
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x030604, 0.022);
+    scene.fog = new THREE.FogExp2(0x05050b, 0.02);
 
-    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 160);
-    camera.position.set(0, 1.5, 22);
+    const camera = new THREE.PerspectiveCamera(58, window.innerWidth / window.innerHeight, 0.1, 160);
+    camera.position.set(0, 1.5, 24);
 
-    // 3D Cyber Horizon Grid
-    const gridHelper = new THREE.GridHelper(130, 56, 0x0df043, 0x0b2914);
-    gridHelper.position.y = -11;
+    // Subtle Horizon Grid (Indigo/Violet)
+    const gridHelper = new THREE.GridHelper(130, 52, 0x6d28d9, 0x161430);
+    gridHelper.position.y = -12;
     gridHelper.material.transparent = true;
-    gridHelper.material.opacity = 0.24;
+    gridHelper.material.opacity = 0.22;
     scene.add(gridHelper);
 
-    // 3D Floating Data Particles
-    const count = 1100;
+    // Background Scroll-Morphing Ambient Wireframe Sculpture
+    const morphGroup = new THREE.Group();
+    morphGroup.position.set(0, 0, -14);
+    scene.add(morphGroup);
+
+    const torusKnotGeo = new THREE.TorusKnotGeometry(5.5, 1.2, 110, 14);
+    const torusKnotMat = new THREE.MeshBasicMaterial({
+        color: 0x7c3aed,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.045
+    });
+    const morphMesh = new THREE.Mesh(torusKnotGeo, torusKnotMat);
+    morphGroup.add(morphMesh);
+
+    // Deep-Space Starfield (Violet + Lavender + Sky Cyan)
+    const count = 950;
     const positions = new Float32Array(count * 3);
     const colors = new Float32Array(count * 3);
 
-    const emerald = new THREE.Color(0x0df043);
-    const cyan = new THREE.Color(0x00e0ff);
+    const cViolet = new THREE.Color(0x8b5cf6);
+    const cCyan = new THREE.Color(0x38bdf8);
+    const cSoft = new THREE.Color(0xc4b5fd);
 
     for (let i = 0; i < count; i++) {
         const i3 = i * 3;
-        positions[i3] = (Math.random() - 0.5) * 90;
-        positions[i3 + 1] = (Math.random() - 0.5) * 55;
+        positions[i3] = (Math.random() - 0.5) * 95;
+        positions[i3 + 1] = (Math.random() - 0.5) * 60;
         positions[i3 + 2] = (Math.random() - 0.5) * 80;
 
-        const c = Math.random() > 0.22 ? emerald : cyan;
-        colors[i3] = c.r;
-        colors[i3 + 1] = c.g;
-        colors[i3 + 2] = c.b;
+        const r = Math.random();
+        const picked = r < 0.5 ? cViolet : (r < 0.82 ? cCyan : cSoft);
+        colors[i3] = picked.r;
+        colors[i3 + 1] = picked.g;
+        colors[i3 + 2] = picked.b;
     }
 
     const pGeo = new THREE.BufferGeometry();
@@ -232,10 +315,10 @@ function initGlobalWebGL() {
     pGeo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
     const pMat = new THREE.PointsMaterial({
-        size: 0.14,
+        size: 0.13,
         vertexColors: true,
         transparent: true,
-        opacity: 0.65,
+        opacity: 0.58,
         blending: THREE.AdditiveBlending
     });
 
@@ -244,15 +327,15 @@ function initGlobalWebGL() {
 
     let targetMouseX = 0;
     let targetMouseY = 0;
-    let scrollOffset = 0;
+    let scrollYVal = 0;
 
     window.addEventListener('mousemove', (e) => {
-        targetMouseX = (e.clientX / window.innerWidth - 0.5) * 2.5;
-        targetMouseY = (e.clientY / window.innerHeight - 0.5) * 1.8;
+        targetMouseX = (e.clientX / window.innerWidth - 0.5) * 2.2;
+        targetMouseY = (e.clientY / window.innerHeight - 0.5) * 1.5;
     }, { passive: true });
 
     window.addEventListener('scroll', () => {
-        scrollOffset = window.scrollY * 0.006;
+        scrollYVal = window.scrollY;
     }, { passive: true });
 
     window.addEventListener('resize', () => {
@@ -262,13 +345,41 @@ function initGlobalWebGL() {
     });
 
     const clock = new THREE.Clock();
+    let targetMorphScale = 1;
+    let targetCamZ = 24;
+    let targetMorphOpacity = 0.04;
+
     function animate() {
         const elapsed = clock.getElapsedTime();
+        const scrollFactor = scrollYVal * 0.004;
 
-        particles.rotation.y = elapsed * 0.025;
-        particles.position.z = (scrollOffset % 20);
-        gridHelper.position.z = (elapsed * 1.6 + scrollOffset * 2) % (130 / 56);
+        // Scroll-driven state morphing (subtle & balanced)
+        if (currentSceneMode === 'core') {
+            targetMorphScale = 0.9;
+            targetCamZ = 24;
+            targetMorphOpacity = 0.035;
+        } else if (currentSceneMode === 'neural') {
+            targetMorphScale = 1.35;
+            targetCamZ = 19.5;
+            targetMorphOpacity = 0.075;
+        } else {
+            targetMorphScale = 1.05;
+            targetCamZ = 22;
+            targetMorphOpacity = 0.04;
+        }
 
+        const currentScale = morphGroup.scale.x + (targetMorphScale - morphGroup.scale.x) * 0.035;
+        morphGroup.scale.setScalar(currentScale);
+        torusKnotMat.opacity += (targetMorphOpacity - torusKnotMat.opacity) * 0.04;
+
+        morphMesh.rotation.x = elapsed * 0.08 + scrollFactor * 0.25;
+        morphMesh.rotation.y = elapsed * 0.11;
+
+        particles.rotation.y = elapsed * 0.02;
+        particles.position.z = (scrollFactor % 18);
+        gridHelper.position.z = (elapsed * 1.2 + scrollFactor * 2) % (130 / 52);
+
+        camera.position.z += (targetCamZ - camera.position.z) * 0.035;
         camera.position.x += (targetMouseX - camera.position.x) * 0.04;
         camera.position.y += ((1.5 - targetMouseY) - camera.position.y) * 0.04;
         camera.lookAt(0, 0, 0);
@@ -279,7 +390,7 @@ function initGlobalWebGL() {
     animate();
 }
 
-/* ==================== 6. HERO 3D AUTOMATION GYROSCOPE CORE ==================== */
+/* ==================== 7. HERO 3D CRYSTAL GYROSCOPE CORE ==================== */
 function initHero3DCore() {
     const canvas = document.getElementById('hero-canvas');
     const stage = document.getElementById('hero-3d-stage');
@@ -293,8 +404,8 @@ function initHero3DCore() {
     camera.position.set(0, 0, 7.6);
 
     function resizeHero() {
-        const w = stage.clientWidth || 500;
-        const h = stage.clientHeight || 500;
+        const w = stage.clientWidth || 480;
+        const h = stage.clientHeight || 480;
         renderer.setSize(w, h, false);
         camera.aspect = w / h;
         camera.updateProjectionMatrix();
@@ -305,54 +416,52 @@ function initHero3DCore() {
         new ResizeObserver(resizeHero).observe(stage);
     }
 
-    // Lighting
-    const ambient = new THREE.AmbientLight(0xffffff, 0.55);
-    scene.add(ambient);
+    // Luxury Violet + Sky Cyan Studio Lighting
+    scene.add(new THREE.AmbientLight(0xffffff, 0.55));
 
-    const neonLight = new THREE.PointLight(0x0df043, 2.8, 18);
-    neonLight.position.set(4, 4, 5);
-    scene.add(neonLight);
+    const violetLight = new THREE.PointLight(0x8b5cf6, 3.2, 20);
+    violetLight.position.set(4, 4, 5);
+    scene.add(violetLight);
 
-    const cyanLight = new THREE.PointLight(0x00e0ff, 1.9, 18);
-    cyanLight.position.set(-4, -3, 4);
+    const cyanLight = new THREE.PointLight(0x38bdf8, 2.4, 20);
+    cyanLight.position.set(-4, -3, 5);
     scene.add(cyanLight);
 
-    // Master Group
     const coreGroup = new THREE.Group();
     scene.add(coreGroup);
 
-    // 1. Faceted Obsidian Metallic Inner Core
-    const innerGeo = new THREE.IcosahedronGeometry(1.18, 1);
+    // 1. Faceted Deep Indigo Crystal Core
+    const innerGeo = new THREE.IcosahedronGeometry(1.16, 1);
     const innerMat = new THREE.MeshStandardMaterial({
-        color: 0x07140c,
-        roughness: 0.22,
-        metalness: 0.88,
+        color: 0x0d0e24,
+        roughness: 0.2,
+        metalness: 0.9,
         flatShading: true,
-        emissive: 0x042610,
-        emissiveIntensity: 0.7
+        emissive: 0x1e1042,
+        emissiveIntensity: 0.75
     });
     const innerMesh = new THREE.Mesh(innerGeo, innerMat);
     coreGroup.add(innerMesh);
 
-    // 2. Glowing Neon Wireframe Exoskeleton
-    const wireGeo = new THREE.IcosahedronGeometry(1.26, 1);
+    // 2. Precision Wireframe Exoskeleton
+    const wireGeo = new THREE.IcosahedronGeometry(1.25, 1);
     const wireMat = new THREE.MeshBasicMaterial({
-        color: 0x0df043,
+        color: 0xa78bfa,
         wireframe: true,
         transparent: true,
-        opacity: 0.72
+        opacity: 0.65
     });
     const wireMesh = new THREE.Mesh(wireGeo, wireMat);
     coreGroup.add(wireMesh);
 
-    // 3. Concentric 3D Gyroscope Rings
+    // 3. Concentric Gyroscope Rings
     const ringConfigs = [
-        { radius: 1.85, tube: 0.018, color: 0x0df043, opacity: 0.75, rx: 1.1, ry: 0.3 },
-        { radius: 2.28, tube: 0.014, color: 0x00e0ff, opacity: 0.52, rx: -0.7, ry: 0.9 },
-        { radius: 2.68, tube: 0.012, color: 0x0df043, opacity: 0.35, rx: 0.4, ry: -1.1 }
+        { radius: 1.84, tube: 0.016, color: 0x8b5cf6, opacity: 0.78, rx: 1.1, ry: 0.3 },
+        { radius: 2.26, tube: 0.013, color: 0x38bdf8, opacity: 0.56, rx: -0.7, ry: 0.9 },
+        { radius: 2.66, tube: 0.011, color: 0xc4b5fd, opacity: 0.34, rx: 0.4, ry: -1.1 }
     ];
 
-    const rings = ringConfigs.map((cfg) => {
+    const rings = ringConfigs.map(cfg => {
         const rGeo = new THREE.TorusGeometry(cfg.radius, cfg.tube, 16, 100);
         const rMat = new THREE.MeshBasicMaterial({
             color: cfg.color,
@@ -363,10 +472,10 @@ function initHero3DCore() {
         ring.rotation.x = cfg.rx;
         ring.rotation.y = cfg.ry;
 
-        // Attach orbiting node crystal on each ring
-        const satGeo = new THREE.OctahedronGeometry(0.11, 0);
-        const satMat = new THREE.MeshBasicMaterial({ color: cfg.color });
-        const sat = new THREE.Mesh(satGeo, satMat);
+        const sat = new THREE.Mesh(
+            new THREE.OctahedronGeometry(0.1, 0),
+            new THREE.MeshBasicMaterial({ color: cfg.color })
+        );
         sat.position.set(cfg.radius, 0, 0);
         ring.add(sat);
 
@@ -374,39 +483,37 @@ function initHero3DCore() {
         return ring;
     });
 
-    // Interactive mouse rotation on stage
     let targetRotX = 0;
     let targetRotY = 0;
 
     window.addEventListener('mousemove', (e) => {
         const nx = (e.clientX / window.innerWidth - 0.5) * 2;
         const ny = (e.clientY / window.innerHeight - 0.5) * 2;
-        targetRotY = nx * 0.65;
-        targetRotX = ny * 0.45;
+        targetRotY = nx * 0.6;
+        targetRotX = ny * 0.42;
     }, { passive: true });
 
     const clock = new THREE.Clock();
     function animateHero() {
         const t = clock.getElapsedTime();
 
-        innerMesh.rotation.y = t * 0.35;
-        innerMesh.rotation.x = t * 0.2;
-        wireMesh.rotation.y = -t * 0.28;
-        wireMesh.rotation.z = t * 0.18;
+        innerMesh.rotation.y = t * 0.32;
+        innerMesh.rotation.x = t * 0.18;
+        wireMesh.rotation.y = -t * 0.24;
+        wireMesh.rotation.z = t * 0.16;
 
-        // Subtle breathing pulse
-        const pulse = 1 + Math.sin(t * 2.4) * 0.035;
+        const pulse = 1 + Math.sin(t * 2.1) * 0.03;
         innerMesh.scale.setScalar(pulse);
         wireMesh.scale.setScalar(pulse);
 
-        rings[0].rotation.z = t * 0.65;
-        rings[0].rotation.x = 1.1 + Math.sin(t * 0.7) * 0.25;
+        rings[0].rotation.z = t * 0.6;
+        rings[0].rotation.x = 1.1 + Math.sin(t * 0.65) * 0.22;
 
-        rings[1].rotation.z = -t * 0.48;
-        rings[1].rotation.y = 0.9 + Math.cos(t * 0.6) * 0.3;
+        rings[1].rotation.z = -t * 0.44;
+        rings[1].rotation.y = 0.9 + Math.cos(t * 0.55) * 0.28;
 
-        rings[2].rotation.z = t * 0.32;
-        rings[2].rotation.x = 0.4 + Math.cos(t * 0.5) * 0.25;
+        rings[2].rotation.z = t * 0.3;
+        rings[2].rotation.x = 0.4 + Math.cos(t * 0.48) * 0.22;
 
         coreGroup.rotation.y += (targetRotY - coreGroup.rotation.y) * 0.06;
         coreGroup.rotation.x += (targetRotX - coreGroup.rotation.x) * 0.06;
@@ -417,7 +524,7 @@ function initHero3DCore() {
     animateHero();
 }
 
-/* ==================== 7. INTERACTIVE GHL WORKFLOW SIMULATOR ==================== */
+/* ==================== 8. LIVE GHL WORKFLOW SIMULATOR ==================== */
 function initWorkflowSimulator() {
     const nodesContainer = document.getElementById('wf-nodes');
     const svgLayer = document.getElementById('wf-svg');
@@ -438,7 +545,7 @@ function initWorkflowSimulator() {
             kpi1: ['0.4 sec', 'Instant First Touch'],
             kpi2: ['+340%', 'Calendar Booking Lift'],
             nodes: [
-                { type: 'Trigger', cls: '', icon: 'fa-bolt', title: 'Lead Form / FB Ad', desc: 'Webhook & form capture' },
+                { type: 'Trigger', cls: '', icon: 'fa-bolt', title: 'Lead Form / Ad', desc: 'Webhook & form capture' },
                 { type: 'CRM Action', cls: '', icon: 'fa-tags', title: 'Tag & Pipeline', desc: 'Create Hot Lead stage' },
                 { type: 'AI Agent', cls: 'type-ai', icon: 'fa-robot', title: 'AI SMS + Email', desc: 'Personalized 2-way outreach' },
                 { type: 'If / Else', cls: 'type-cond', icon: 'fa-code-branch', title: 'Intent Qualified?', desc: 'Positive reply branch' },
@@ -467,7 +574,7 @@ function initWorkflowSimulator() {
                 ['00.05s', 'INFO', 'Inbound call missed on tracking number (+61-4XX)'],
                 ['00.24s', 'OK', 'Instant SMS sent: "Sorry we missed your call..."'],
                 ['00.68s', 'INFO', 'AI Receptionist parsed reply: "Need urgent quote"'],
-                ['00.95s', 'OK', 'Opportunity assigned to on-duty technician'],
+                ['00.95s', 'OK', 'Opportunity assigned to on-duty specialist'],
                 ['01.20s', 'OK', 'SUCCESS: Customer booked 2:00 PM slot via link!']
             ]
         },
@@ -505,8 +612,8 @@ function initWorkflowSimulator() {
                 ['00.06s', 'INFO', 'POST Webhook received from WooCommerce Storefront'],
                 ['00.22s', 'OK', '200 OK: JSON validated (Order #4829 + UTM Source)'],
                 ['00.49s', 'OK', 'GHL Contact mapped with Custom Fields & VIP Tag'],
-                ['00.81s', 'INFO', 'Triggered WhatsApp/SMS order confirmation'],
-                ['01.14s', 'OK', 'SUCCESS: Enrolled in 30-day automated repeat-buyer flow!']
+                ['00.81s', 'INFO', 'Triggered automated order confirmation SMS'],
+                ['01.14s', 'OK', 'SUCCESS: Enrolled in 30-day repeat-buyer flow!']
             ]
         }
     };
@@ -524,7 +631,9 @@ function initWorkflowSimulator() {
         svgLayer.innerHTML = '';
         if (window.innerWidth <= 860) return;
 
-        const stageRect = document.getElementById('wf-stage').getBoundingClientRect();
+        const stageEl = document.getElementById('wf-stage');
+        if (!stageEl) return;
+        const stageRect = stageEl.getBoundingClientRect();
         const nodeEls = nodesContainer.querySelectorAll('.wf-node');
 
         for (let i = 0; i < nodeEls.length - 1; i++) {
@@ -546,7 +655,6 @@ function initWorkflowSimulator() {
             const energyPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
             energyPath.setAttribute('d', d);
             energyPath.setAttribute('class', 'wf-edge-energy');
-            energyPath.dataset.edgeIndex = i;
 
             svgLayer.appendChild(basePath);
             svgLayer.appendChild(energyPath);
@@ -593,7 +701,7 @@ function initWorkflowSimulator() {
         edgeEls.forEach(e => e.classList.remove('energized'));
         logsContainer.innerHTML = '';
 
-        if (stateBadge) stateBadge.textContent = 'RUNNING ⚡';
+        if (stateBadge) stateBadge.textContent = 'RUNNING';
 
         bp.nodes.forEach((_, idx) => {
             const t = setTimeout(() => {
@@ -618,15 +726,14 @@ function initWorkflowSimulator() {
                 logsContainer.scrollTop = logsContainer.scrollHeight;
 
                 if (idx === bp.nodes.length - 1) {
-                    const finishTimer = setTimeout(() => {
+                    const doneTimer = setTimeout(() => {
                         nodeEls[idx].classList.remove('active-step');
                         nodeEls[idx].classList.add('completed-step');
                         if (stateBadge) stateBadge.textContent = '200 OK ✓';
-                    }, 650);
-                    simTimers.push(finishTimer);
+                    }, 600);
+                    simTimers.push(doneTimer);
                 }
-            }, idx * 520);
-
+            }, idx * 500);
             simTimers.push(t);
         });
     }
@@ -643,28 +750,53 @@ function initWorkflowSimulator() {
         });
     });
 
-    if (runBtn) {
-        runBtn.addEventListener('click', () => runSimulation());
-    }
-
+    if (runBtn) runBtn.addEventListener('click', runSimulation);
     window.addEventListener('resize', drawConnections);
 
-    // Initial render without running until scrolled into view
     renderBlueprint('speed', false);
 
     const wfSection = document.getElementById('workflows');
     if (wfSection) {
-        const wfObs = new IntersectionObserver((entries) => {
+        const obs = new IntersectionObserver((entries) => {
             if (entries[0].isIntersecting) {
-                runSimulation();
-                wfObs.disconnect();
+                setTimeout(() => {
+                    drawConnections();
+                    runSimulation();
+                }, 250);
+                obs.disconnect();
             }
         }, { threshold: 0.25 });
-        wfObs.observe(wfSection);
+        obs.observe(wfSection);
     }
 }
 
-/* ==================== 8. PORTFOLIO CATEGORY FILTER ==================== */
+/* ==================== 9. INTERACTIVE ROI IMPACT SLIDER ==================== */
+function initComparisonSlider() {
+    const slider = document.getElementById('lead-volume-slider');
+    const volVal = document.getElementById('lead-volume-val');
+    const manualEl = document.getElementById('roi-manual-calls');
+    const autoEl = document.getElementById('roi-auto-calls');
+    const hoursEl = document.getElementById('roi-hours-saved');
+
+    if (!slider) return;
+
+    function updateROI() {
+        const leads = parseInt(slider.value, 10) || 200;
+        const manualCalls = Math.round(leads * 0.06);
+        const autoCalls = Math.round(leads * 0.21);
+        const hoursSaved = Math.max(8, Math.round(leads * 0.165));
+
+        if (volVal) volVal.textContent = `${leads.toLocaleString()} Leads / mo`;
+        if (manualEl) manualEl.textContent = `${manualCalls} Calls/mo`;
+        if (autoEl) autoEl.textContent = `${autoCalls} Calls/mo`;
+        if (hoursEl) hoursEl.textContent = `${hoursSaved} Hrs/mo`;
+    }
+
+    slider.addEventListener('input', updateROI);
+    updateROI();
+}
+
+/* ==================== 10. PORTFOLIO CATEGORY FILTERS ==================== */
 function initPortfolioFilters() {
     const buttons = document.querySelectorAll('.filter-btn');
     const cards = document.querySelectorAll('.project-3d-card');
@@ -680,12 +812,12 @@ function initPortfolioFilters() {
                 if (match) {
                     card.classList.remove('is-hidden');
                     card.style.opacity = '0';
-                    card.style.transform = 'translateY(20px)';
+                    card.style.transform = 'translateY(16px)';
                     setTimeout(() => {
-                        card.style.transition = 'opacity 0.45s ease, transform 0.45s ease';
+                        card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
                         card.style.opacity = '1';
                         card.style.transform = '';
-                    }, (i % 6) * 55);
+                    }, (i % 6) * 50);
                 } else {
                     card.classList.add('is-hidden');
                 }
@@ -694,12 +826,101 @@ function initPortfolioFilters() {
     });
 }
 
-/* ==================== 9. 3D PERSPECTIVE TILT & SPECULAR GLARE ==================== */
+/* ==================== 11. IN-PAGE INTERACTIVE DEVICE PREVIEW MODAL ==================== */
+function initDevicePreviewModal() {
+    const modal = document.getElementById('preview-modal');
+    const backdrop = document.getElementById('pm-backdrop');
+    const closeBtn = document.getElementById('pm-close');
+    const titleEl = document.getElementById('pm-title');
+    const tagEl = document.getElementById('pm-tag');
+    const externalLink = document.getElementById('pm-external-link');
+    const frameWrap = document.getElementById('pm-viewport-frame');
+    const iframe = document.getElementById('pm-iframe');
+    const loader = document.getElementById('pm-loader');
+    const fallback = document.getElementById('pm-fallback');
+    const fallbackImg = document.getElementById('pm-fallback-img');
+    const devBtns = document.querySelectorAll('.pm-dev-btn');
+
+    if (!modal || !iframe) return;
+
+    let loadTimeout = null;
+
+    function openPreview({ title, url, img, tag }) {
+        titleEl.textContent = title;
+        tagEl.textContent = tag || 'Live Build';
+        externalLink.href = url;
+        fallbackImg.src = img || '';
+
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+        if (lenisInstance) lenisInstance.stop();
+
+        // Check if HTTPS page trying to embed HTTP iframe (Mixed Content protection)
+        const isMixedContent = window.location.protocol === 'https:' && url.startsWith('http://');
+
+        if (isMixedContent) {
+            loader.classList.add('hidden');
+            iframe.src = 'about:blank';
+            fallback.classList.add('visible');
+        } else {
+            fallback.classList.remove('visible');
+            loader.classList.remove('hidden');
+            iframe.src = url;
+
+            clearTimeout(loadTimeout);
+            loadTimeout = setTimeout(() => {
+                loader.classList.add('hidden');
+            }, 3500);
+
+            iframe.onload = () => {
+                clearTimeout(loadTimeout);
+                loader.classList.add('hidden');
+            };
+        }
+    }
+
+    function closePreview() {
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden', 'true');
+        iframe.src = 'about:blank';
+        if (lenisInstance) lenisInstance.start();
+    }
+
+    document.querySelectorAll('.project-preview-trigger').forEach(btn => {
+        btn.addEventListener('click', () => {
+            openPreview({
+                title: btn.dataset.title,
+                url: btn.dataset.url,
+                img: btn.dataset.img,
+                tag: btn.dataset.tag
+            });
+        });
+    });
+
+    devBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            devBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            frameWrap.classList.remove('vp-desktop', 'vp-tablet', 'vp-mobile');
+            frameWrap.classList.add(`vp-${btn.dataset.viewport}`);
+        });
+    });
+
+    if (closeBtn) closeBtn.addEventListener('click', closePreview);
+    if (backdrop) backdrop.addEventListener('click', closePreview);
+
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('open')) {
+            closePreview();
+        }
+    });
+}
+
+/* ==================== 12. 3D TILT & SPECULAR GLARE ==================== */
 function init3DTiltCards() {
     if (window.matchMedia('(hover: none), (pointer: coarse)').matches) return;
 
-    const cards = document.querySelectorAll('.tilt-3d');
-    cards.forEach(card => {
+    document.querySelectorAll('.tilt-3d').forEach(card => {
         card.addEventListener('mousemove', (e) => {
             const rect = card.getBoundingClientRect();
             const x = e.clientX - rect.left;
@@ -708,23 +929,23 @@ function init3DTiltCards() {
             const pctX = (x / rect.width) * 100;
             const pctY = (y / rect.height) * 100;
 
-            const rotY = ((x - rect.width / 2) / (rect.width / 2)) * 6.5;
-            const rotX = ((rect.height / 2 - y) / (rect.height / 2)) * 6.5;
+            const rotY = ((x - rect.width / 2) / (rect.width / 2)) * 5.2;
+            const rotX = ((rect.height / 2 - y) / (rect.height / 2)) * 5.2;
 
             card.style.setProperty('--glare-x', `${pctX}%`);
             card.style.setProperty('--glare-y', `${pctY}%`);
             card.style.transition = 'border-color 0.3s, box-shadow 0.3s';
-            card.style.transform = `perspective(1100px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-4px)`;
+            card.style.transform = `perspective(1150px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-3px)`;
         });
 
         card.addEventListener('mouseleave', () => {
             card.style.transition = 'transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s, box-shadow 0.3s';
-            card.style.transform = 'perspective(1100px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+            card.style.transform = 'perspective(1150px) rotateX(0deg) rotateY(0deg) translateY(0px)';
         });
     });
 }
 
-/* ==================== 10. SCROLL REVEALS & STAT COUNTERS ==================== */
+/* ==================== 13. SCROLL REVEALS & COUNTERS ==================== */
 function initScrollRevealsAndCounters() {
     const revealEls = document.querySelectorAll('.reveal-up, .reveal-scale');
     const revObs = new IntersectionObserver((entries) => {
@@ -738,14 +959,13 @@ function initScrollRevealsAndCounters() {
 
     revealEls.forEach(el => revObs.observe(el));
 
-    // Number Counters
     const counters = document.querySelectorAll('.counter');
     const countObs = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (!entry.isIntersecting) return;
             const el = entry.target;
             const target = parseInt(el.dataset.target, 10) || 0;
-            const duration = 1400;
+            const duration = 1350;
             const start = performance.now();
 
             function step(now) {
@@ -762,29 +982,117 @@ function initScrollRevealsAndCounters() {
     counters.forEach(c => countObs.observe(c));
 }
 
-/* ==================== 11. CONTACT SYSTEM & COPY EMAIL ==================== */
+/* ==================== 14. GHL AI ASSISTANT DEMO WIDGET ==================== */
+function initAIAssistant() {
+    const pill = document.getElementById('ai-launcher-pill');
+    const panel = document.getElementById('ai-chat-panel');
+    const closeBtn = document.getElementById('ai-close-btn');
+    const wlOpenBtn = document.getElementById('open-ai-from-wl');
+    const messagesEl = document.getElementById('ai-chat-messages');
+    const form = document.getElementById('ai-chat-form');
+    const input = document.getElementById('ai-user-input');
+    const chips = document.querySelectorAll('.ai-prompt-chip');
+
+    if (!pill || !panel || !messagesEl) return;
+
+    function togglePanel(forceOpen) {
+        const shouldOpen = typeof forceOpen === 'boolean' ? forceOpen : !panel.classList.contains('open');
+        panel.classList.toggle('open', shouldOpen);
+        panel.setAttribute('aria-hidden', String(!shouldOpen));
+        if (shouldOpen && input) setTimeout(() => input.focus(), 150);
+    }
+
+    pill.addEventListener('click', () => togglePanel());
+    if (closeBtn) closeBtn.addEventListener('click', () => togglePanel(false));
+
+    if (wlOpenBtn) {
+        wlOpenBtn.addEventListener('click', () => {
+            togglePanel(true);
+            handleUserQuestion('Do you work white-label with agencies?');
+        });
+    }
+
+    function getBotResponse(q) {
+        const text = q.toLowerCase();
+        if (text.includes('white') || text.includes('agency') || text.includes('retainer')) {
+            return 'Yes! Rao partners white-label with US, UK & Australian agencies — handling GHL websites, snapshot builds, complex workflow debugging, and WordPress sites directly inside your client sub-accounts under strict NDA.';
+        }
+        if (text.includes('workflow') || text.includes('automation') || text.includes('ghl') || text.includes('bot')) {
+            return 'Rao builds full GoHighLevel systems: AI Speed-to-Lead SMS bots, Missed-Call Text-Back, 5-Star Google Review funnels, A2P 10DLC setups, and custom REST Webhook integrations.';
+        }
+        if (text.includes('wordpress') || text.includes('woo') || text.includes('ecommerce')) {
+            return 'Rao develops custom WordPress & WooCommerce websites (like G&K Accountants, Ultra Neat Cleaning & World Turns Left) with custom CSS/JS, fast load times, and real-time GHL CRM sync.';
+        }
+        if (text.includes('start') || text.includes('hire') || text.includes('price') || text.includes('call') || text.includes('contact')) {
+            return 'You can start right away! Email Rao at mmairajsa123@gmail.com or fill out the Project Brief in the Contact section below for a fast response within a few hours.';
+        }
+        return 'Rao specializes in custom-coded GoHighLevel websites, AI CRM workflows, and bespoke WordPress/WooCommerce platforms. Would you like to explore his live projects or send a project brief below?';
+    }
+
+    function appendMessage(role, content) {
+        const div = document.createElement('div');
+        div.className = `ai-msg ${role}`;
+        div.textContent = content;
+        messagesEl.appendChild(div);
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+        return div;
+    }
+
+    function handleUserQuestion(question) {
+        if (!question.trim()) return;
+        appendMessage('user', question);
+        const typingEl = appendMessage('bot', 'Typing...');
+
+        setTimeout(() => {
+            typingEl.textContent = getBotResponse(question);
+            messagesEl.scrollTop = messagesEl.scrollHeight;
+        }, 520);
+    }
+
+    chips.forEach(chip => {
+        chip.addEventListener('click', () => handleUserQuestion(chip.dataset.q));
+    });
+
+    if (form) {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const val = input.value;
+            input.value = '';
+            handleUserQuestion(val);
+        });
+    }
+}
+
+/* ==================== 15. CONTACT SYSTEM & WHITE-LABEL PREFILL ==================== */
 function initContactSystem() {
-    // Service Chips
     const chips = document.querySelectorAll('.svc-chip');
     const hiddenInput = document.getElementById('selected-service');
+
+    function selectServiceByName(name) {
+        chips.forEach(c => {
+            const match = c.dataset.service === name;
+            c.classList.toggle('active', match);
+        });
+        if (hiddenInput) hiddenInput.value = name;
+    }
+
     chips.forEach(chip => {
-        chip.addEventListener('click', () => {
-            chips.forEach(c => c.classList.remove('active'));
-            chip.classList.add('active');
-            if (hiddenInput) hiddenInput.value = chip.dataset.service;
+        chip.addEventListener('click', () => selectServiceByName(chip.dataset.service));
+    });
+
+    document.querySelectorAll('[data-select-service]').forEach(trigger => {
+        trigger.addEventListener('click', () => {
+            selectServiceByName(trigger.dataset.selectService);
         });
     });
 
-    // One-click Copy Email
     const copyBtn = document.getElementById('copy-email-btn');
     if (copyBtn) {
         copyBtn.addEventListener('click', async () => {
             const email = copyBtn.dataset.email || 'mmairajsa123@gmail.com';
             try {
                 await navigator.clipboard.writeText(email);
-            } catch (_) {
-                // Fallback if clipboard blocked
-            }
+            } catch (_) {}
             const span = copyBtn.querySelector('span');
             const prev = span.textContent;
             span.textContent = 'Copied!';
@@ -792,7 +1100,6 @@ function initContactSystem() {
         });
     }
 
-    // Contact Form Submission
     const form = document.getElementById('contactForm');
     const submitBtn = document.getElementById('submit-btn');
     if (form && submitBtn) {
@@ -804,13 +1111,13 @@ function initContactSystem() {
             const service = fd.get('service');
             const message = fd.get('message');
 
-            const originalHTML = submitBtn.innerHTML;
-            submitBtn.innerHTML = '<span>Encrypting &amp; Preparing...</span> <i class="fa-solid fa-circle-notch fa-spin"></i>';
+            const prevHTML = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<span>Preparing Inquiry...</span> <i class="fa-solid fa-circle-notch fa-spin"></i>';
 
             setTimeout(() => {
                 const subject = encodeURIComponent(`[Portfolio Inquiry] ${service} — from ${name}`);
                 const body = encodeURIComponent(
-                    `Hi Rao,\n\nName: ${name}\nEmail: ${email}\nProject Type: ${service}\n\nDetails:\n${message}\n`
+                    `Hi Rao,\n\nName: ${name}\nEmail: ${email}\nEngagement Type: ${service}\n\nProject Brief:\n${message}\n`
                 );
                 window.location.href = `mailto:mmairajsa123@gmail.com?subject=${subject}&body=${body}`;
 
@@ -818,9 +1125,9 @@ function initContactSystem() {
                 form.reset();
 
                 setTimeout(() => {
-                    submitBtn.innerHTML = originalHTML;
+                    submitBtn.innerHTML = prevHTML;
                 }, 3500);
-            }, 700);
+            }, 600);
         });
     }
 }

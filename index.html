@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rao Muhammad Mairaj | 3D GoHighLevel, Automation & WordPress Architect</title>
-    <meta name="description" content="Portfolio of Rao Muhammad Mairaj (RAO.DEV) — GoHighLevel (GHL) Expert, Workflow Automation Engineer, and Custom WordPress & WooCommerce Developer.">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23040a06'/%3E%3Cpolygon points='32,12 50,32 32,52 14,32' fill='%230df043'/%3E%3C/svg%3E">
+    <title>Rao Muhammad Mairaj | GoHighLevel, AI Automation &amp; WordPress Architect</title>
+    <meta name="description" content="Portfolio of Rao Muhammad Mairaj (RAO.DEV) — GoHighLevel (GHL) Architect, AI Workflow Automation Engineer, and Custom WordPress & WooCommerce Developer.">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%238B5CF6'/%3E%3Cstop offset='100%25' stop-color='%2338BDF8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='%2306060E'/%3E%3Cpolygon points='32,12 50,32 32,52 14,32' fill='url(%23g)'/%3E%3C/svg%3E">
 
-    <!-- Fonts -->
+    <!-- Fonts: Space Grotesk + Plus Jakarta Sans + JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 
     <!-- Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
@@ -19,31 +19,34 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Cyber Boot Preloader -->
+    <!-- Top Scroll Progress Hairline -->
+    <div class="scroll-progress-bar" id="scroll-progress-bar" aria-hidden="true"></div>
+
+    <!-- Refined Luxury Preloader -->
     <div id="preloader" class="preloader">
         <div class="preloader-inner">
             <div class="preloader-logo">
-                <span class="logo-cube"></span>
+                <span class="logo-prism"></span>
                 <span>RAO<span class="accent">.</span>DEV</span>
             </div>
             <div class="preloader-bar-track">
                 <div class="preloader-bar-fill" id="preloader-fill"></div>
             </div>
             <div class="preloader-meta">
-                <span id="preloader-status">INITIALIZING 3D AUTOMATION ENGINE...</span>
+                <span id="preloader-status">INITIALIZING 3D ENGINE...</span>
                 <span id="preloader-percent">0%</span>
             </div>
         </div>
     </div>
 
-    <!-- Custom Precision Cursor (Desktop) -->
+    <!-- Custom Precision Cursor (Desktop Only) -->
     <div class="cursor-dot" id="cursor-dot"></div>
     <div class="cursor-ring" id="cursor-ring"></div>
 
-    <!-- Global 3D WebGL Background Stage -->
+    <!-- Global Scroll-Morphing 3D WebGL Stage -->
     <canvas id="bg-webgl" aria-hidden="true"></canvas>
     <div class="ambient-aurora" aria-hidden="true"></div>
-    <div class="cyber-noise" aria-hidden="true"></div>
+    <div class="subtle-grain" aria-hidden="true"></div>
 
     <!-- Floating Glass Command Navigation -->
     <header id="navbar" class="navbar">
@@ -57,19 +60,20 @@
 
             <nav class="nav-pill" aria-label="Primary Navigation">
                 <a href="#home" class="nav-link active">Overview</a>
-                <a href="#workflows" class="nav-link">GHL Workflows</a>
-                <a href="#portfolio" class="nav-link">Live Projects</a>
+                <a href="#workflows" class="nav-link">Workflows</a>
+                <a href="#transformation" class="nav-link">ROI Impact</a>
+                <a href="#portfolio" class="nav-link">Projects</a>
                 <a href="#about" class="nav-link">Capabilities</a>
-                <a href="#process" class="nav-link">Process</a>
+                <a href="#whitelabel" class="nav-link">Agencies</a>
             </nav>
 
             <div class="nav-right">
                 <div class="status-pill">
-                    <span class="status-ping"></span>
-                    <span>Available for Work</span>
+                    <span class="status-emerald"></span>
+                    <span>Available for Projects</span>
                 </div>
-                <a href="#contact" class="btn btn-neon btn-sm magnetic">
-                    <span>Let's Build</span>
+                <a href="#contact" class="btn btn-primary btn-sm magnetic">
+                    <span>Start a Project</span>
                     <i class="fa-solid fa-arrow-up-right-from-square"></i>
                 </a>
                 <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle Menu">
@@ -82,141 +86,137 @@
         <!-- Mobile Drawer -->
         <div class="mobile-drawer" id="mobile-drawer">
             <a href="#home" class="mobile-link">Overview</a>
-            <a href="#workflows" class="mobile-link">GHL Workflows & AI</a>
+            <a href="#workflows" class="mobile-link">Live GHL Workflows</a>
+            <a href="#transformation" class="mobile-link">Before vs. After ROI</a>
             <a href="#portfolio" class="mobile-link">Live Projects (10)</a>
-            <a href="#about" class="mobile-link">About & Tech Stack</a>
-            <a href="#process" class="mobile-link">Execution Process</a>
-            <a href="#contact" class="btn btn-neon" style="width: 100%; justify-content: center; margin-top: 0.5rem;">
-                Start a Project <i class="fa-solid fa-bolt"></i>
+            <a href="#about" class="mobile-link">Capabilities &amp; Stack</a>
+            <a href="#whitelabel" class="mobile-link">White-Label Partner</a>
+            <a href="#contact" class="btn btn-primary" style="width: 100%; justify-content: center; margin-top: 0.5rem;">
+                Let's Build Together <i class="fa-solid fa-arrow-right"></i>
             </a>
         </div>
     </header>
 
     <main>
-        <!-- ==================== 3D HERO STAGE ==================== -->
-        <section id="home" class="hero-section">
+        <!-- ==================== 1. 3D HERO STAGE ==================== -->
+        <section id="home" class="hero-section" data-scene="core">
             <div class="container hero-grid">
-                <!-- Left Kinetic Pitch -->
+                <!-- Left Column -->
                 <div class="hero-content reveal-up">
                     <div class="eyebrow-chip">
-                        <i class="fa-solid fa-microchip"></i>
-                        <span>GOHIGHLEVEL ARCHITECT &bull; AUTOMATION &amp; WORDPRESS DEV</span>
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        <span>GOHIGHLEVEL ARCHITECT &bull; AI AUTOMATION &bull; WORDPRESS</span>
                     </div>
 
                     <p class="hero-intro">Hi, I'm <strong>Rao Muhammad Mairaj</strong></p>
 
                     <h1 class="hero-headline">
-                        <span class="headline-top">I Engineer</span>
+                        <span class="headline-top">Engineering Autonomous</span>
                         <span class="headline-dynamic-wrap">
-                            <span id="kinetic-word" class="headline-neon">GHL Ecosystems</span>
+                            <span id="kinetic-word" class="headline-gradient">GHL Ecosystems</span>
                         </span>
-                        <span class="headline-sub">That Scale on Autopilot.</span>
+                        <span class="headline-sub">Built to Convert &amp; Scale.</span>
                     </h1>
 
                     <p class="hero-description">
-                        Combining <strong>Computer Science engineering</strong> with high-converting architecture. I build custom-coded <strong>GoHighLevel websites</strong>, intelligent <strong>CRM workflows &amp; AI automations</strong>, and bespoke <strong>WordPress &amp; WooCommerce platforms</strong> that turn visitors into booked revenue.
+                        I pair a <strong>Computer Science foundation</strong> with conversion-driven design to craft custom-coded <strong>GoHighLevel websites</strong>, intelligent <strong>CRM workflows &amp; AI booking bots</strong>, and high-speed <strong>WordPress &amp; WooCommerce platforms</strong>.
                     </p>
 
                     <div class="hero-cta-group">
-                        <a href="#portfolio" class="btn btn-neon btn-lg magnetic">
+                        <a href="#portfolio" class="btn btn-primary btn-lg magnetic">
                             <span>Explore 10 Live Builds</span>
-                            <i class="fa-solid fa-cube"></i>
+                            <i class="fa-solid fa-layer-group"></i>
                         </a>
                         <a href="#workflows" class="btn btn-glass btn-lg magnetic">
-                            <span class="live-dot"></span>
-                            <span>Test Live GHL Workflow</span>
+                            <i class="fa-solid fa-play" style="font-size: 0.78rem; color: var(--cyan);"></i>
+                            <span>Simulate GHL Workflow</span>
                         </a>
                     </div>
 
                     <div class="hero-metrics-bar">
                         <div class="hero-metric">
                             <span class="hm-val">50+</span>
-                            <span class="hm-lbl">Systems Engineered</span>
+                            <span class="hm-lbl">Systems Shipped</span>
                         </div>
                         <div class="hm-divider"></div>
                         <div class="hero-metric">
                             <span class="hm-val">2+ Yrs</span>
-                            <span class="hm-lbl">GHL &amp; WP Mastery</span>
+                            <span class="hm-lbl">GHL &amp; WP Specialist</span>
                         </div>
                         <div class="hm-divider"></div>
                         <div class="hero-metric">
-                            <span class="hm-val">&lt; 5s</span>
+                            <span class="hm-val">0.4s</span>
                             <span class="hm-lbl">AI Lead Response</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Right Interactive 3D Core & Floating Holographic Cards -->
+                <!-- Right Column: Interactive 3D Crystal Core & Floating Glass Telemetry -->
                 <div class="hero-3d-stage reveal-scale" id="hero-3d-stage">
                     <div class="reactor-halo"></div>
-                    <!-- Interactive Three.js 3D Gyroscope Core -->
                     <canvas id="hero-canvas" aria-label="Interactive 3D Automation Core"></canvas>
 
-                    <!-- Floating 3D Telemetry HUD Card 1 -->
+                    <!-- Floating Telemetry Card 1 -->
                     <div class="hud-card hud-top-right float-slow">
                         <div class="hud-icon"><i class="fa-solid fa-bolt"></i></div>
                         <div class="hud-body">
-                            <span class="hud-tag">GHL WEBHOOK TRIGGER</span>
+                            <span class="hud-tag">WEBHOOK TRIGGER</span>
                             <strong>Lead &rarr; AI SMS Dispatched</strong>
-                            <span class="hud-meta">Executed in 0.38s &bull; 200 OK</span>
+                            <span class="hud-meta">0.38s latency &bull; 200 OK</span>
                         </div>
                     </div>
 
-                    <!-- Floating 3D Telemetry HUD Card 2 -->
+                    <!-- Floating Telemetry Card 2 -->
                     <div class="hud-card hud-bottom-left float-delayed">
                         <div class="hud-icon hud-icon-cyan"><i class="fa-brands fa-wordpress-simple"></i></div>
                         <div class="hud-body">
-                            <span class="hud-tag hud-tag-cyan">FULL-STACK CMS</span>
+                            <span class="hud-tag hud-tag-cyan">BESPOKE CMS</span>
                             <strong>WordPress + WooCommerce</strong>
-                            <span class="hud-meta">Custom JS/CSS &bull; 99+ Speed</span>
+                            <span class="hud-meta">Custom JS/CSS &bull; Core Web Vitals</span>
                         </div>
                     </div>
 
-                    <!-- Floating 3D Telemetry HUD Card 3 -->
+                    <!-- Floating Telemetry Card 3 -->
                     <div class="hud-card hud-bottom-right float-fast">
                         <div class="hud-status-ring">
                             <i class="fa-solid fa-calendar-check"></i>
                         </div>
                         <div class="hud-body">
-                            <span class="hud-tag">PIPELINE AUTOMATION</span>
-                            <strong>Calendar Auto-Booked</strong>
+                            <span class="hud-tag hud-tag-emerald">CRM PIPELINE</span>
+                            <strong>Strategy Call Booked</strong>
                         </div>
-                    </div>
-
-                    <div class="stage-hint">
-                        <i class="fa-solid fa-hand-pointer"></i> Move cursor to interact in 3D
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- ==================== 3D ANGLED TECH MARQUEE ==================== -->
+        <!-- ==================== TECH ECOSYSTEM MARQUEE ==================== -->
         <div class="marquee-section" aria-hidden="true">
-            <div class="marquee-ribbon ribbon-primary">
+            <div class="marquee-ribbon">
                 <div class="marquee-track">
                     <span><i class="fa-solid fa-bolt"></i> GOHIGHLEVEL WEBSITES</span>
                     <span><i class="fa-solid fa-diagram-project"></i> WORKFLOW AUTOMATIONS</span>
-                    <span><i class="fa-solid fa-robot"></i> AI APPOINTMENT BOTS</span>
+                    <span><i class="fa-solid fa-robot"></i> CONVERSATIONAL AI BOTS</span>
                     <span><i class="fa-brands fa-wordpress"></i> CUSTOM WORDPRESS</span>
-                    <span><i class="fa-solid fa-cart-shopping"></i> WOOCOMMERCE STORES</span>
+                    <span><i class="fa-solid fa-bag-shopping"></i> WOOCOMMERCE STORES</span>
                     <span><i class="fa-solid fa-code"></i> CUSTOM JS &amp; CSS INJECTION</span>
                     <span><i class="fa-solid fa-plug"></i> REST API &amp; WEBHOOKS</span>
-                    <span><i class="fa-solid fa-layer-group"></i> SAAS SNAPSHOTS</span>
-                    <!-- Duplicate for seamless loop -->
+                    <span><i class="fa-solid fa-clone"></i> SAAS SNAPSHOTS</span>
+                    <!-- Seamless duplicate -->
                     <span><i class="fa-solid fa-bolt"></i> GOHIGHLEVEL WEBSITES</span>
                     <span><i class="fa-solid fa-diagram-project"></i> WORKFLOW AUTOMATIONS</span>
-                    <span><i class="fa-solid fa-robot"></i> AI APPOINTMENT BOTS</span>
+                    <span><i class="fa-solid fa-robot"></i> CONVERSATIONAL AI BOTS</span>
                     <span><i class="fa-brands fa-wordpress"></i> CUSTOM WORDPRESS</span>
-                    <span><i class="fa-solid fa-cart-shopping"></i> WOOCOMMERCE STORES</span>
+                    <span><i class="fa-solid fa-bag-shopping"></i> WOOCOMMERCE STORES</span>
                     <span><i class="fa-solid fa-code"></i> CUSTOM JS &amp; CSS INJECTION</span>
                     <span><i class="fa-solid fa-plug"></i> REST API &amp; WEBHOOKS</span>
-                    <span><i class="fa-solid fa-layer-group"></i> SAAS SNAPSHOTS</span>
+                    <span><i class="fa-solid fa-clone"></i> SAAS SNAPSHOTS</span>
                 </div>
             </div>
         </div>
 
-        <!-- ==================== INTERACTIVE GHL WORKFLOW LAB ==================== -->
-        <section id="workflows" class="section-block workflow-section">
+        <!-- ==================== 2. INTERACTIVE GHL WORKFLOW SIMULATOR ==================== -->
+        <section id="workflows" class="section-block workflow-section" data-scene="neural">
             <div class="container">
                 <div class="section-header reveal-up">
                     <div class="eyebrow-chip">
@@ -224,14 +224,13 @@
                         <span>INTERACTIVE AUTOMATION ARCHITECTURE</span>
                     </div>
                     <h2 class="section-heading">
-                        Live <span class="text-neon">GHL Workflow</span> Simulator
+                        Live <span class="text-gradient">GHL Workflow</span> Lab
                     </h2>
                     <p class="section-subtext">
-                        Don't just take my word for it — test the exact GoHighLevel automation blueprints I architect for agencies and service businesses. Select a system and trigger a live simulation.
+                        Select any real-world GoHighLevel automation blueprint below and trigger a live simulation to inspect how leads are captured, qualified, and booked automatically.
                     </p>
                 </div>
 
-                <!-- Workflow Selector Tabs + Trigger Action -->
                 <div class="workflow-controls reveal-up">
                     <div class="workflow-tabs" role="tablist" aria-label="GHL Workflow Blueprints">
                         <button class="wf-tab active" data-wf="speed" role="tab" aria-selected="true">
@@ -252,55 +251,41 @@
                         </button>
                     </div>
 
-                    <button id="run-workflow-btn" class="btn btn-neon magnetic">
+                    <button id="run-workflow-btn" class="btn btn-primary magnetic">
                         <i class="fa-solid fa-play"></i>
                         <span>Simulate Trigger</span>
                     </button>
                 </div>
 
-                <!-- 3D Glass Workflow Simulator Workspace -->
                 <div class="workflow-workspace reveal-up">
-                    <!-- Left: Interactive Node Graph Canvas -->
+                    <!-- Left: Node Graph -->
                     <div class="wf-canvas-panel" id="wf-canvas-panel">
                         <div class="wf-canvas-topbar">
-                            <div class="browser-dots">
-                                <span></span><span></span><span></span>
-                            </div>
-                            <div class="wf-blueprint-title" id="wf-blueprint-title">
-                                workflow://ghl/ai-speed-to-lead.v2
-                            </div>
-                            <div class="wf-status-badge" id="wf-status-badge">
-                                <span class="pulse-dot"></span> PUBLISHED
-                            </div>
+                            <div class="browser-dots"><span></span><span></span><span></span></div>
+                            <div class="wf-blueprint-title" id="wf-blueprint-title">workflow://ghl/ai-speed-to-lead.v2</div>
+                            <div class="wf-status-badge"><span class="status-emerald"></span> PUBLISHED</div>
                         </div>
-
                         <div class="wf-stage" id="wf-stage">
                             <svg class="wf-svg-layer" id="wf-svg" preserveAspectRatio="none"></svg>
-                            <div class="wf-nodes-layer" id="wf-nodes">
-                                <!-- Populated dynamically by main.js -->
-                            </div>
+                            <div class="wf-nodes-layer" id="wf-nodes"></div>
                         </div>
                     </div>
 
-                    <!-- Right: Live Execution Console & ROI Telemetry -->
+                    <!-- Right: Execution Console -->
                     <div class="wf-telemetry-panel">
                         <div class="wf-terminal-header">
-                            <span><i class="fa-solid fa-terminal"></i> LIVE EXECUTION LOGS</span>
+                            <span><i class="fa-solid fa-terminal"></i> EXECUTION TELEMETRY</span>
                             <span class="mono-badge" id="wf-exec-state">READY</span>
                         </div>
-
-                        <div class="wf-terminal-body" id="wf-terminal-logs">
-                            <!-- Live execution logs stream here -->
-                        </div>
-
-                        <div class="wf-kpi-grid" id="wf-kpi-grid">
+                        <div class="wf-terminal-body" id="wf-terminal-logs" data-lenis-prevent></div>
+                        <div class="wf-kpi-grid">
                             <div class="wf-kpi-box">
-                                <span class="wf-kpi-val" id="kpi-1">&lt; 5 sec</span>
-                                <span class="wf-kpi-lbl" id="kpi-1-lbl">Response Speed</span>
+                                <span class="wf-kpi-val" id="kpi-1">0.4 sec</span>
+                                <span class="wf-kpi-lbl" id="kpi-1-lbl">Instant First Touch</span>
                             </div>
                             <div class="wf-kpi-box">
                                 <span class="wf-kpi-val" id="kpi-2">+340%</span>
-                                <span class="wf-kpi-lbl" id="kpi-2-lbl">Booking Conversion</span>
+                                <span class="wf-kpi-lbl" id="kpi-2-lbl">Calendar Booking Lift</span>
                             </div>
                         </div>
                     </div>
@@ -308,26 +293,105 @@
             </div>
         </section>
 
-        <!-- ==================== 3D HOLOGRAPHIC PROJECT VAULT ==================== -->
-        <section id="portfolio" class="section-block portfolio-section">
+        <!-- ==================== 3. BEFORE VS AFTER + INTERACTIVE ROI SLIDER ==================== -->
+        <section id="transformation" class="section-block compare-section" data-scene="neural">
+            <div class="container">
+                <div class="section-header reveal-up">
+                    <div class="eyebrow-chip">
+                        <i class="fa-solid fa-sliders"></i>
+                        <span>MEASURABLE BUSINESS TRANSFORMATION</span>
+                    </div>
+                    <h2 class="section-heading">
+                        Manual Chaos vs. <span class="text-gradient">Engineered Autopilot</span>
+                    </h2>
+                    <p class="section-subtext">
+                        See how replacing disconnected forms and manual follow-ups with a custom GHL + WordPress system transforms response speed and booked appointments.
+                    </p>
+                </div>
+
+                <div class="transform-grid reveal-up">
+                    <!-- Left: Before -->
+                    <div class="transform-card card-before">
+                        <div class="comp-badge badge-before">
+                            <i class="fa-solid fa-triangle-exclamation"></i> BEFORE // MANUAL SETUP
+                        </div>
+                        <h3>Slow Follow-Ups &amp; Leaky Templates</h3>
+                        <ul class="comp-list list-negative">
+                            <li><i class="fa-solid fa-xmark"></i> <div><strong>6+ Hour Response Delay:</strong> Leads go cold or hire a competitor before anyone replies.</div></li>
+                            <li><i class="fa-solid fa-xmark"></i> <div><strong>Missed Phone Calls:</strong> Unanswered calls drop to voicemail with zero SMS recovery.</div></li>
+                            <li><i class="fa-solid fa-xmark"></i> <div><strong>Generic Templates:</strong> Cookie-cutter pages that look identical to every competitor.</div></li>
+                            <li><i class="fa-solid fa-xmark"></i> <div><strong>Disconnected Silos:</strong> WordPress forms buried in email inboxes &amp; manual spreadsheets.</div></li>
+                        </ul>
+                    </div>
+
+                    <!-- Right: After -->
+                    <div class="transform-card card-after">
+                        <div class="comp-badge badge-after">
+                            <i class="fa-solid fa-circle-check"></i> AFTER // RAO.DEV SYSTEM
+                        </div>
+                        <h3>0.4s AI Automation &amp; Custom-Coded UI</h3>
+                        <ul class="comp-list list-positive">
+                            <li><i class="fa-solid fa-check"></i> <div><strong>0.4s Speed-to-Lead:</strong> Instant AI SMS &amp; Email triggered the moment a form is submitted.</div></li>
+                            <li><i class="fa-solid fa-check"></i> <div><strong>Missed-Call Text-Back:</strong> Every missed call gets an instant SMS + calendar booking link.</div></li>
+                            <li><i class="fa-solid fa-check"></i> <div><strong>Bespoke Frontend Polish:</strong> Custom HTML, CSS &amp; JS engineered for trust and conversion.</div></li>
+                            <li><i class="fa-solid fa-check"></i> <div><strong>Unified CRM Pipeline:</strong> WordPress, WooCommerce, Ads &amp; Calendars synced in real time.</div></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Interactive ROI Simulator Bar -->
+                <div class="roi-simulator-card reveal-up">
+                    <div class="roi-slider-col">
+                        <div class="roi-slider-head">
+                            <label for="lead-volume-slider">Drag Monthly Lead Volume</label>
+                            <strong id="lead-volume-val">200 Leads / mo</strong>
+                        </div>
+                        <input type="range" id="lead-volume-slider" min="50" max="1000" step="25" value="200" class="luxury-range">
+                        <div class="roi-scale-marks">
+                            <span>50 leads</span>
+                            <span>500 leads</span>
+                            <span>1,000 leads</span>
+                        </div>
+                    </div>
+
+                    <div class="roi-results-col">
+                        <div class="roi-stat-box muted-box">
+                            <span class="rs-lbl">Manual Setup (~6% Booked)</span>
+                            <strong class="rs-val" id="roi-manual-calls">12 Calls/mo</strong>
+                        </div>
+                        <div class="roi-stat-box highlight-box">
+                            <span class="rs-lbl">With GHL Autopilot (~21% Booked)</span>
+                            <strong class="rs-val text-gradient" id="roi-auto-calls">42 Calls/mo</strong>
+                        </div>
+                        <div class="roi-stat-box highlight-box">
+                            <span class="rs-lbl">Manual Admin Saved</span>
+                            <strong class="rs-val" id="roi-hours-saved" style="color: var(--cyan);">33 Hrs/mo</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== 4. 3D PROJECT VAULT + INTERACTIVE PREVIEW ==================== -->
+        <section id="portfolio" class="section-block portfolio-section" data-scene="vault">
             <div class="container">
                 <div class="section-header reveal-up">
                     <div class="eyebrow-chip">
                         <i class="fa-solid fa-cubes"></i>
-                        <span>VERIFIED PRODUCTION PORTFOLIO</span>
+                        <span>VERIFIED PRODUCTION DEPLOYMENTS</span>
                     </div>
                     <h2 class="section-heading">
-                        3D Vault of <span class="text-neon">Live Websites</span>
+                        Selected <span class="text-gradient">Live Websites</span>
                     </h2>
                     <p class="section-subtext">
-                        Explore real, production GoHighLevel full websites and custom Australian WordPress &amp; WooCommerce builds. Hover in 3D or launch any live deployment.
+                        Explore 10 live GoHighLevel websites and custom Australian WordPress &amp; WooCommerce builds. Inspect inside our interactive multi-device studio or open the live deployment.
                     </p>
                 </div>
 
                 <!-- Filter Bar -->
                 <div class="portfolio-filters reveal-up" role="tablist" aria-label="Filter Projects">
                     <button class="filter-btn active" data-filter="all">
-                        All Live Builds <span class="count-pill">10</span>
+                        All Builds <span class="count-pill">10</span>
                     </button>
                     <button class="filter-btn" data-filter="ghl">
                         <i class="fa-solid fa-bolt"></i> GoHighLevel Websites <span class="count-pill">6</span>
@@ -358,11 +422,16 @@
                                 <span class="tech-mini">Custom CSS &bull; GHL CRM</span>
                             </div>
                             <h3 class="project-name">Automation Software</h3>
-                            <p class="project-summary">High-converting SaaS marketing website engineered inside GoHighLevel with custom dark UI styling, interactive feature showcases, and automated demo booking.</p>
-                            <a href="https://app.gohighlevel.com/v2/preview/f8RKY5hrTprWzLUACflQ" target="_blank" rel="noopener noreferrer" class="project-launch-btn">
-                                <span>Launch Live Site</span>
-                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                            </a>
+                            <p class="project-summary">High-converting SaaS website engineered inside GoHighLevel with custom dark UI styling, interactive feature blocks, and automated demo booking.</p>
+                            <div class="project-actions-row">
+                                <button type="button" class="project-preview-trigger" data-title="Automation Software" data-url="https://app.gohighlevel.com/v2/preview/f8RKY5hrTprWzLUACflQ" data-img="assets/projects/ghl-automation.png" data-tag="GHL SaaS Website">
+                                    <i class="fa-solid fa-desktop"></i> Interactive Preview
+                                </button>
+                                <a href="https://app.gohighlevel.com/v2/preview/f8RKY5hrTprWzLUACflQ" target="_blank" rel="noopener noreferrer" class="project-launch-btn">
+                                    <span>Live Site</span>
+                                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                </a>
+                            </div>
                         </div>
                     </article>
 
@@ -384,15 +453,20 @@
                                 <span class="tech-mini">WordPress &bull; Lead Forms</span>
                             </div>
                             <h3 class="project-name">G&amp;K Accountants</h3>
-                            <p class="project-summary">Bespoke corporate WordPress website for an Australian accounting firm featuring custom UI styling, structured financial service pages, and consultation lead forms.</p>
-                            <a href="https://gkaccountants.com.au" target="_blank" rel="noopener noreferrer" class="project-launch-btn">
-                                <span>Launch Live Site</span>
-                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                            </a>
+                            <p class="project-summary">Bespoke corporate WordPress website for an Australian accounting firm featuring custom UI styling, structured tax service pages, and consultation forms.</p>
+                            <div class="project-actions-row">
+                                <button type="button" class="project-preview-trigger" data-title="G&K Accountants" data-url="https://gkaccountants.com.au" data-img="assets/projects/wp-gk-accountants.png" data-tag="Australian WordPress Site">
+                                    <i class="fa-solid fa-desktop"></i> Interactive Preview
+                                </button>
+                                <a href="https://gkaccountants.com.au" target="_blank" rel="noopener noreferrer" class="project-launch-btn">
+                                    <span>Live Site</span>
+                                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                </a>
+                            </div>
                         </div>
                     </article>
 
-                    <!-- 3. GHL: Clinical Spa -->
+                    <!-- 3. GHL: Luxe Clinical Spa -->
                     <article class="project-3d-card tilt-3d" data-category="ghl">
                         <div class="card-glare"></div>
                         <div class="browser-chrome">
@@ -410,11 +484,16 @@
                                 <span class="tech-mini">GHL Calendar &bull; Portal</span>
                             </div>
                             <h3 class="project-name">Luxe Clinical Spa</h3>
-                            <p class="project-summary">Luxury medical aesthetics &amp; wellness full website built on GoHighLevel with integrated patient appointment scheduling and automated SMS reminders.</p>
-                            <a href="https://app.gohighlevel.com/v2/preview/NAJJ2ZdGrXgELzqrQSks" target="_blank" rel="noopener noreferrer" class="project-launch-btn">
-                                <span>Launch Live Site</span>
-                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                            </a>
+                            <p class="project-summary">Luxury medical aesthetics &amp; wellness full website built on GoHighLevel with integrated patient appointment scheduling and SMS reminders.</p>
+                            <div class="project-actions-row">
+                                <button type="button" class="project-preview-trigger" data-title="Luxe Clinical Spa" data-url="https://app.gohighlevel.com/v2/preview/NAJJ2ZdGrXgELzqrQSks" data-img="assets/projects/ghl-clinical-spa.png" data-tag="GHL Medical Website">
+                                    <i class="fa-solid fa-desktop"></i> Interactive Preview
+                                </button>
+                                <a href="https://app.gohighlevel.com/v2/preview/NAJJ2ZdGrXgELzqrQSks" target="_blank" rel="noopener noreferrer" class="project-launch-btn">
+                                    <span>Live Site</span>
+                                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                </a>
+                            </div>
                         </div>
                     </article>
 
@@ -436,11 +515,16 @@
                                 <span class="tech-mini">WordPress &bull; WooCommerce</span>
                             </div>
                             <h3 class="project-name">World Turns Left</h3>
-                            <p class="project-summary">Full-featured Australian WordPress e-commerce storefront powered by WooCommerce with custom product layouts, smooth cart UX, and mobile checkout optimization.</p>
-                            <a href="http://worldturnsleft.com.au/" target="_blank" rel="noopener noreferrer" class="project-launch-btn">
-                                <span>Launch Live Site</span>
-                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                            </a>
+                            <p class="project-summary">Full-featured Australian WordPress e-commerce storefront powered by WooCommerce with custom product layouts, cart UX, and checkout optimization.</p>
+                            <div class="project-actions-row">
+                                <button type="button" class="project-preview-trigger" data-title="World Turns Left" data-url="http://worldturnsleft.com.au/" data-img="assets/projects/wp-world-turns-left.png" data-tag="WooCommerce Store">
+                                    <i class="fa-solid fa-desktop"></i> Interactive Preview
+                                </button>
+                                <a href="http://worldturnsleft.com.au/" target="_blank" rel="noopener noreferrer" class="project-launch-btn">
+                                    <span>Live Site</span>
+                                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                </a>
+                            </div>
                         </div>
                     </article>
 
@@ -462,11 +546,16 @@
                                 <span class="tech-mini">Instant Quote &bull; GHL</span>
                             </div>
                             <h3 class="project-name">Junk Haulers Pro</h3>
-                            <p class="project-summary">Conversion-engineered GoHighLevel website for waste removal services featuring an instant quote request flow wired directly into CRM pipeline stages.</p>
-                            <a href="https://app.gohighlevel.com/v2/preview/oN5wni1Sv1MIwBqP0QQd?notrack=true" target="_blank" rel="noopener noreferrer" class="project-launch-btn">
-                                <span>Launch Live Site</span>
-                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                            </a>
+                            <p class="project-summary">Conversion-engineered GoHighLevel website for waste removal services featuring an instant quote request flow wired directly into CRM stages.</p>
+                            <div class="project-actions-row">
+                                <button type="button" class="project-preview-trigger" data-title="Junk Haulers Pro" data-url="https://app.gohighlevel.com/v2/preview/oN5wni1Sv1MIwBqP0QQd?notrack=true" data-img="assets/projects/ghl-junk-haulers.png" data-tag="GHL Service Website">
+                                    <i class="fa-solid fa-desktop"></i> Interactive Preview
+                                </button>
+                                <a href="https://app.gohighlevel.com/v2/preview/oN5wni1Sv1MIwBqP0QQd?notrack=true" target="_blank" rel="noopener noreferrer" class="project-launch-btn">
+                                    <span>Live Site</span>
+                                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                </a>
+                            </div>
                         </div>
                     </article>
 
@@ -488,11 +577,16 @@
                                 <span class="tech-mini">WordPress &bull; SEO Pages</span>
                             </div>
                             <h3 class="project-name">Ultra Neat Cleaning</h3>
-                            <p class="project-summary">Modern Australian cleaning business WordPress platform built with dedicated commercial &amp; residential service pages and high-converting lead capture forms.</p>
-                            <a href="https://ultraneat.com.au" target="_blank" rel="noopener noreferrer" class="project-launch-btn">
-                                <span>Launch Live Site</span>
-                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                            </a>
+                            <p class="project-summary">Modern Australian cleaning business WordPress platform built with dedicated commercial &amp; residential service pages and instant quote forms.</p>
+                            <div class="project-actions-row">
+                                <button type="button" class="project-preview-trigger" data-title="Ultra Neat Cleaning" data-url="https://ultraneat.com.au" data-img="assets/projects/wp-ultra-neat.png" data-tag="WordPress Lead-Gen Site">
+                                    <i class="fa-solid fa-desktop"></i> Interactive Preview
+                                </button>
+                                <a href="https://ultraneat.com.au" target="_blank" rel="noopener noreferrer" class="project-launch-btn">
+                                    <span>Live Site</span>
+                                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                </a>
+                            </div>
                         </div>
                     </article>
 
@@ -514,11 +608,16 @@
                                 <span class="tech-mini">Property Showcase &bull; GHL</span>
                             </div>
                             <h3 class="project-name">Luxury Estates</h3>
-                            <p class="project-summary">Architectural real estate website inside GoHighLevel highlighting featured luxury listings, agent authority profiles, and automated buyer inquiry nurturing.</p>
-                            <a href="https://app.gohighlevel.com/v2/preview/N2ckxiUSLETGjdYaWyqu" target="_blank" rel="noopener noreferrer" class="project-launch-btn">
-                                <span>Launch Live Site</span>
-                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                            </a>
+                            <p class="project-summary">Architectural real estate website inside GoHighLevel highlighting featured luxury listings, agent authority profiles, and automated buyer nurturing.</p>
+                            <div class="project-actions-row">
+                                <button type="button" class="project-preview-trigger" data-title="Luxury Estates" data-url="https://app.gohighlevel.com/v2/preview/N2ckxiUSLETGjdYaWyqu" data-img="assets/projects/ghl-luxury-estates.png" data-tag="GHL Real Estate Website">
+                                    <i class="fa-solid fa-desktop"></i> Interactive Preview
+                                </button>
+                                <a href="https://app.gohighlevel.com/v2/preview/N2ckxiUSLETGjdYaWyqu" target="_blank" rel="noopener noreferrer" class="project-launch-btn">
+                                    <span>Live Site</span>
+                                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                </a>
+                            </div>
                         </div>
                     </article>
 
@@ -541,10 +640,15 @@
                             </div>
                             <h3 class="project-name">Xpress Maintenance</h3>
                             <p class="project-summary">Fast, trustworthy WordPress website for an Australian property maintenance company designed for rapid service discovery and mobile quote requests.</p>
-                            <a href="https://xpressmaintenance.com.au/" target="_blank" rel="noopener noreferrer" class="project-launch-btn">
-                                <span>Launch Live Site</span>
-                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                            </a>
+                            <div class="project-actions-row">
+                                <button type="button" class="project-preview-trigger" data-title="Xpress Maintenance" data-url="https://xpressmaintenance.com.au/" data-img="assets/projects/wp-xpress-maintenance.png" data-tag="WordPress Trade Website">
+                                    <i class="fa-solid fa-desktop"></i> Interactive Preview
+                                </button>
+                                <a href="https://xpressmaintenance.com.au/" target="_blank" rel="noopener noreferrer" class="project-launch-btn">
+                                    <span>Live Site</span>
+                                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                </a>
+                            </div>
                         </div>
                     </article>
 
@@ -567,10 +671,15 @@
                             </div>
                             <h3 class="project-name">24/7 Car Towing</h3>
                             <p class="project-summary">Emergency roadside assistance GoHighLevel website built for mobile speed, one-tap dispatch calling, and missed-call text-back automation.</p>
-                            <a href="https://app.gohighlevel.com/v2/preview/hh6Bxgz1r9gk7S1w1pRQ?notrack=true" target="_blank" rel="noopener noreferrer" class="project-launch-btn">
-                                <span>Launch Live Site</span>
-                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                            </a>
+                            <div class="project-actions-row">
+                                <button type="button" class="project-preview-trigger" data-title="24/7 Car Towing" data-url="https://app.gohighlevel.com/v2/preview/hh6Bxgz1r9gk7S1w1pRQ?notrack=true" data-img="assets/projects/ghl-car-towing.png" data-tag="GHL Emergency Website">
+                                    <i class="fa-solid fa-desktop"></i> Interactive Preview
+                                </button>
+                                <a href="https://app.gohighlevel.com/v2/preview/hh6Bxgz1r9gk7S1w1pRQ?notrack=true" target="_blank" rel="noopener noreferrer" class="project-launch-btn">
+                                    <span>Live Site</span>
+                                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                </a>
+                            </div>
                         </div>
                     </article>
 
@@ -593,10 +702,15 @@
                             </div>
                             <h3 class="project-name">Business Advisor</h3>
                             <p class="project-summary">Authority brand website in GoHighLevel crafted for executive consultants with discovery call calendars and automated email follow-up sequences.</p>
-                            <a href="https://app.gohighlevel.com/v2/preview/DxlhzkJ5G51l8HsQYAMh?notrack=true" target="_blank" rel="noopener noreferrer" class="project-launch-btn">
-                                <span>Launch Live Site</span>
-                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                            </a>
+                            <div class="project-actions-row">
+                                <button type="button" class="project-preview-trigger" data-title="Business Advisor" data-url="https://app.gohighlevel.com/v2/preview/DxlhzkJ5G51l8HsQYAMh?notrack=true" data-img="assets/projects/ghl-business-advisor.png" data-tag="GHL Consulting Website">
+                                    <i class="fa-solid fa-desktop"></i> Interactive Preview
+                                </button>
+                                <a href="https://app.gohighlevel.com/v2/preview/DxlhzkJ5G51l8HsQYAMh?notrack=true" target="_blank" rel="noopener noreferrer" class="project-launch-btn">
+                                    <span>Live Site</span>
+                                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                </a>
+                            </div>
                         </div>
                     </article>
 
@@ -604,40 +718,40 @@
             </div>
         </section>
 
-        <!-- ==================== 3D BENTO CAPABILITIES & ABOUT ==================== -->
-        <section id="about" class="section-block bento-section">
+        <!-- ==================== 5. BENTO CAPABILITIES & CS ENGINEERING ==================== -->
+        <section id="about" class="section-block bento-section" data-scene="core">
             <div class="container">
                 <div class="section-header reveal-up">
                     <div class="eyebrow-chip">
-                        <i class="fa-solid fa-dna"></i>
+                        <i class="fa-solid fa-code"></i>
                         <span>THE DEVELOPER ADVANTAGE</span>
                     </div>
                     <h2 class="section-heading">
-                        Where <span class="text-neon">CS Engineering</span> Meets Revenue Growth
+                        Where <span class="text-gradient">CS Engineering</span> Meets Growth
                     </h2>
                     <p class="section-subtext">
-                        Most builders stop at drag-and-drop templates. With a Computer Science foundation, I custom-code every pixel, animation, and webhook integration.
+                        Most builders stop at drag-and-drop limits. With a formal Computer Science foundation, I write custom frontend code and API integrations inside GHL and WordPress.
                     </p>
                 </div>
 
-                <div class="bento-3d-grid" id="bento-grid">
-                    <!-- Main Bio Card -->
-                    <div class="bento-card bento-span-2 bento-row-2 tilt-3d spotlight-card">
+                <div class="bento-3d-grid">
+                    <!-- Bio Span Card -->
+                    <div class="bento-card bento-span-2 bento-row-2 tilt-3d">
                         <div class="card-glare"></div>
-                        <div class="bento-badge">ABOUT RAO MUHAMMAD MAIRAJ</div>
-                        <h3 class="bento-heading">Pushing GoHighLevel &amp; WordPress Past Platform Limits</h3>
+                        <div class="bento-badge">RAO MUHAMMAD MAIRAJ</div>
+                        <h3 class="bento-heading">Pushing GoHighLevel &amp; WordPress Beyond Standard Templates</h3>
                         <p class="bento-copy">
-                            I am a <strong>BS Computer Science student at Sir Syed University of Engineering &amp; Technology (SSUET)</strong> with <strong>2+ years</strong> of hands-on production experience building revenue-generating systems for international agencies and Australian &amp; US businesses.
+                            I am a <strong>BS Computer Science student at Sir Syed University of Engineering &amp; Technology (SSUET)</strong> with <strong>2+ years</strong> of specialized experience engineering websites and CRM automations for global agencies and Australian &amp; US businesses.
                         </p>
                         <p class="bento-copy">
-                            Whether it's injecting custom <strong>JavaScript &amp; 3D CSS</strong> inside GoHighLevel, architecting multi-branch <strong>AI appointment workflows</strong>, or launching custom <strong>WordPress &amp; WooCommerce</strong> storefronts, I deliver agency-grade speed and polish.
+                            From injecting custom <strong>JavaScript &amp; interactive CSS</strong> inside GoHighLevel to building multi-branch <strong>AI appointment workflows</strong> and full <strong>WooCommerce</strong> storefronts, every system is engineered for speed, reliability, and ROI.
                         </p>
 
                         <div class="skill-pills-wrap">
                             <span class="skill-pill"><i class="fa-solid fa-bolt"></i> GoHighLevel CRM</span>
                             <span class="skill-pill"><i class="fa-solid fa-diagram-project"></i> GHL Workflows</span>
                             <span class="skill-pill"><i class="fa-brands fa-wordpress"></i> WordPress</span>
-                            <span class="skill-pill"><i class="fa-solid fa-cart-shopping"></i> WooCommerce</span>
+                            <span class="skill-pill"><i class="fa-solid fa-bag-shopping"></i> WooCommerce</span>
                             <span class="skill-pill"><i class="fa-brands fa-js"></i> JavaScript (ES6+)</span>
                             <span class="skill-pill"><i class="fa-brands fa-react"></i> React</span>
                             <span class="skill-pill"><i class="fa-brands fa-html5"></i> HTML5 / CSS3</span>
@@ -645,97 +759,112 @@
                         </div>
                     </div>
 
-                    <!-- Stat Card 1 -->
-                    <div class="bento-card bento-stat-card tilt-3d spotlight-card">
+                    <!-- Stat 1 -->
+                    <div class="bento-card bento-stat-card tilt-3d">
                         <div class="card-glare"></div>
                         <div class="stat-glow-num"><span class="counter" data-target="50">0</span>+</div>
-                        <div class="stat-label">Websites, Funnels &amp; Workflows Shipped</div>
+                        <div class="stat-label">Websites &amp; Workflows Shipped</div>
                         <div class="stat-sub">Across SaaS, Medical, Trades &amp; Real Estate</div>
                     </div>
 
-                    <!-- Stat Card 2 -->
-                    <div class="bento-card bento-stat-card tilt-3d spotlight-card">
+                    <!-- Stat 2 -->
+                    <div class="bento-card bento-stat-card tilt-3d">
                         <div class="card-glare"></div>
                         <div class="stat-glow-num"><span class="counter" data-target="100">0</span>%</div>
                         <div class="stat-label">Custom Code Capable</div>
-                        <div class="stat-sub">Zero generic template bottlenecks</div>
+                        <div class="stat-sub">Custom HTML, CSS, JS &amp; Webhook payloads</div>
                     </div>
 
-                    <!-- GHL Full Stack Card -->
-                    <div class="bento-card tilt-3d spotlight-card">
+                    <!-- Capability 1 -->
+                    <div class="bento-card tilt-3d">
                         <div class="card-glare"></div>
                         <div class="bento-icon-box"><i class="fa-solid fa-robot"></i></div>
-                        <h4 class="bento-title-sm">GHL Sub-Accounts &amp; AI Bots</h4>
+                        <h4 class="bento-title-sm">GHL Snapshots &amp; AI Bots</h4>
                         <p class="bento-copy-sm">
-                            Snapshot creation, A2P 10DLC compliance, pipeline stages, conversational AI booking bots, and automated CRM nurturing.
+                            Sub-account architecture, A2P 10DLC setup, pipelines, calendars, conversational AI bots, and automated review engines.
                         </p>
                     </div>
 
-                    <!-- WordPress & Woo Card -->
-                    <div class="bento-card tilt-3d spotlight-card">
+                    <!-- Capability 2 -->
+                    <div class="bento-card tilt-3d">
                         <div class="card-glare"></div>
                         <div class="bento-icon-box icon-cyan"><i class="fa-brands fa-wordpress"></i></div>
-                        <h4 class="bento-title-sm">WordPress &amp; E-Commerce</h4>
+                        <h4 class="bento-title-sm">WordPress &amp; WooCommerce</h4>
                         <p class="bento-copy-sm">
-                            Custom-styled corporate sites, Elementor Pro builds, WooCommerce stores, technical SEO structure, and instant lead routing.
+                            Bespoke corporate websites, Elementor Pro customization, e-commerce stores, speed optimization, and GHL webhook sync.
                         </p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- ==================== 3-STEP EXECUTION PROCESS ==================== -->
-        <section id="process" class="section-block process-section">
+        <!-- ==================== 6. WHITE-LABEL AGENCY PARTNER SECTION ==================== -->
+        <section id="whitelabel" class="section-block whitelabel-section" data-scene="vault">
             <div class="container">
-                <div class="section-header reveal-up">
-                    <div class="eyebrow-chip">
-                        <i class="fa-solid fa-compass-drafting"></i>
-                        <span>HOW WE LAUNCH</span>
+                <div class="whitelabel-banner reveal-up">
+                    <div class="wl-left">
+                        <div class="eyebrow-chip">
+                            <i class="fa-solid fa-handshake-simple"></i>
+                            <span>FOR US, UK &amp; AUSTRALIAN MARKETING AGENCIES</span>
+                        </div>
+                        <h2 class="wl-heading">
+                            Your Reliable <span class="text-gradient">White-Label</span> GHL &amp; WordPress Technical Partner
+                        </h2>
+                        <p class="wl-desc">
+                            Scaling an agency? Hand off your client website builds, complex GHL workflow debugging, snapshot setups, and WordPress migrations to an engineer who delivers clean work on deadline — completely under your brand.
+                        </p>
+                        <div class="wl-cta-row">
+                            <a href="#contact" class="btn btn-primary magnetic" data-select-service="White-Label Agency Retainer">
+                                <span>Partner With Me</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+                            <button type="button" class="btn btn-glass" id="open-ai-from-wl">
+                                <i class="fa-solid fa-wand-magic-sparkles" style="color: var(--violet-light);"></i>
+                                <span>Ask AI About Agency Workflow</span>
+                            </button>
+                        </div>
                     </div>
-                    <h2 class="section-heading">
-                        From Concept to <span class="text-neon">Automated System</span>
-                    </h2>
-                </div>
 
-                <div class="process-grid">
-                    <div class="process-card tilt-3d spotlight-card reveal-up">
-                        <div class="card-glare"></div>
-                        <span class="step-index">01</span>
-                        <h3>Architecture &amp; Funnel Map</h3>
-                        <p>We map your customer journey, CRM pipeline stages, and UI direction so every page and automation trigger serves a clear revenue goal.</p>
-                    </div>
-
-                    <div class="process-card tilt-3d spotlight-card reveal-up">
-                        <div class="card-glare"></div>
-                        <span class="step-index">02</span>
-                        <h3>3D-Grade Build &amp; Workflows</h3>
-                        <p>I engineer your GoHighLevel or WordPress website with custom CSS/JS polish and wire up instant SMS, email, webhook, and calendar automations.</p>
-                    </div>
-
-                    <div class="process-card tilt-3d spotlight-card reveal-up">
-                        <div class="card-glare"></div>
-                        <span class="step-index">03</span>
-                        <h3>Stress-Test &amp; Go Live</h3>
-                        <p>Every form, trigger, mobile breakpoint, and webhook payload is live-tested end-to-end before launch so leads never slip through the cracks.</p>
+                    <div class="wl-perks-grid">
+                        <div class="wl-perk">
+                            <i class="fa-solid fa-user-shield"></i>
+                            <h4>100% Invisible &amp; NDA Ready</h4>
+                            <p>Seamless fulfillment inside your agency Slack &amp; GHL sub-accounts.</p>
+                        </div>
+                        <div class="wl-perk">
+                            <i class="fa-solid fa-gauge-high"></i>
+                            <h4>Rapid Turnaround</h4>
+                            <p>Structured Loom walkthroughs, clean naming conventions, and tested triggers.</p>
+                        </div>
+                        <div class="wl-perk">
+                            <i class="fa-solid fa-code-merge"></i>
+                            <h4>Custom Code Rescue</h4>
+                            <p>When standard GHL or Elementor widgets fall short, I build it in custom JS/CSS.</p>
+                        </div>
+                        <div class="wl-perk">
+                            <i class="fa-solid fa-earth-oceania"></i>
+                            <h4>Global Timezone Overlap</h4>
+                            <p>Proven track record delivering for Australian, US &amp; UK client accounts.</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- ==================== CONTACT COMMAND CENTER ==================== -->
-        <section id="contact" class="section-block contact-section">
+        <!-- ==================== 7. CONTACT COMMAND CENTER ==================== -->
+        <section id="contact" class="section-block contact-section" data-scene="core">
             <div class="container">
-                <div class="contact-shell spotlight-card reveal-up">
+                <div class="contact-shell reveal-up">
                     <div class="contact-left">
                         <div class="eyebrow-chip">
-                            <span class="live-dot"></span>
-                            <span>READY FOR NEW PROJECTS</span>
+                            <span class="status-emerald"></span>
+                            <span>OPEN FOR PROJECTS &amp; RETAINERS</span>
                         </div>
                         <h2 class="contact-heading">
-                            Ready to Upgrade Your <span class="text-neon">Websites &amp; Automations?</span>
+                            Let's Architect Your Next <span class="text-gradient">Revenue System.</span>
                         </h2>
                         <p class="contact-sub">
-                            Whether you're an agency owner looking for a white-label GoHighLevel &amp; WordPress specialist, or a business ready to automate lead flow — let's talk.
+                            Need a high-converting GoHighLevel website, automated AI lead workflows, or a custom WordPress build? Reach out directly or send your project brief.
                         </p>
 
                         <div class="direct-cards">
@@ -750,33 +879,34 @@
                                 </button>
                             </div>
 
-                            <a href="https://github.com/raomairaj" target="_blank" rel="noopener noreferrer" class="direct-item direct-link">
-                                <div class="direct-icon"><i class="fa-brands fa-github"></i></div>
+                            <a href="mailto:mmairajsa123@gmail.com?subject=15-Min%20Strategy%20Call%20Request%20%E2%80%94%20RAO.DEV" class="direct-item direct-link">
+                                <div class="direct-icon icon-cyan"><i class="fa-solid fa-video"></i></div>
                                 <div class="direct-info">
-                                    <span>GitHub Profile</span>
-                                    <strong>github.com/raomairaj</strong>
+                                    <span>Discovery Call</span>
+                                    <strong>Request a 15-Min Strategy Call</strong>
                                 </div>
                                 <i class="fa-solid fa-arrow-up-right-from-square ext-ico"></i>
                             </a>
 
-                            <div class="direct-item">
-                                <div class="direct-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                            <a href="https://github.com/raomairaj" target="_blank" rel="noopener noreferrer" class="direct-item direct-link">
+                                <div class="direct-icon"><i class="fa-brands fa-github"></i></div>
                                 <div class="direct-info">
-                                    <span>Engineering Background</span>
-                                    <strong>BS CS &bull; SSUET, Karachi</strong>
+                                    <span>GitHub Repository</span>
+                                    <strong>github.com/raomairaj</strong>
                                 </div>
-                            </div>
+                                <i class="fa-solid fa-arrow-up-right-from-square ext-ico"></i>
+                            </a>
                         </div>
                     </div>
 
                     <div class="contact-right">
                         <form id="contactForm" class="cyber-form">
-                            <label class="form-section-lbl">What are we building?</label>
-                            <div class="service-selector" id="service-selector">
+                            <span class="form-section-lbl">Select Engagement Type</span>
+                            <div class="service-selector" id="service-selector" role="group" aria-label="Select Engagement Type">
                                 <button type="button" class="svc-chip active" data-service="GHL Website">GHL Website</button>
                                 <button type="button" class="svc-chip" data-service="GHL Workflows & AI">GHL Workflows &amp; AI</button>
                                 <button type="button" class="svc-chip" data-service="WordPress / WooCommerce">WordPress / Woo</button>
-                                <button type="button" class="svc-chip" data-service="Full System Setup">Full System</button>
+                                <button type="button" class="svc-chip" data-service="White-Label Agency Retainer">White-Label Partner</button>
                             </div>
                             <input type="hidden" name="service" id="selected-service" value="GHL Website">
 
@@ -792,12 +922,12 @@
                             </div>
 
                             <div class="field-wrap">
-                                <label for="f-message">Project Details &amp; Goals</label>
-                                <textarea id="f-message" name="message" rows="4" placeholder="Tell me about your GHL workflows, website build, or WordPress project..." required></textarea>
+                                <label for="f-message">Project Brief</label>
+                                <textarea id="f-message" name="message" rows="4" placeholder="Tell me about your website, GHL automation workflow, or agency requirements..." required></textarea>
                             </div>
 
-                            <button type="submit" class="btn btn-neon btn-lg btn-full magnetic" id="submit-btn">
-                                <span>Launch Project Inquiry</span>
+                            <button type="submit" class="btn btn-primary btn-lg btn-full magnetic" id="submit-btn">
+                                <span>Send Project Inquiry</span>
                                 <i class="fa-solid fa-paper-plane"></i>
                             </button>
                         </form>
@@ -815,26 +945,119 @@
                     <span class="brand-emblem"><span class="brand-core"></span></span>
                     <span class="brand-text">RAO<span class="accent">.</span>DEV</span>
                 </a>
-                <p>GoHighLevel Architect &bull; Workflow Automation &bull; WordPress Developer</p>
+                <p>GoHighLevel Architect &bull; AI Workflow Engineer &bull; WordPress Developer</p>
             </div>
 
             <div class="footer-links">
                 <a href="#workflows">Workflows</a>
+                <a href="#transformation">ROI Impact</a>
                 <a href="#portfolio">Projects</a>
-                <a href="#about">Capabilities</a>
+                <a href="#whitelabel">Agencies</a>
                 <a href="mailto:mmairajsa123@gmail.com">mmairajsa123@gmail.com</a>
                 <a href="https://github.com/raomairaj" target="_blank" rel="noopener noreferrer">GitHub</a>
             </div>
 
             <div class="footer-copy">
-                &copy; 2026 Rao Muhammad Mairaj. Engineered in 3D with Precision.
+                &copy; 2026 Rao Muhammad Mairaj. Crafted with Precision.
             </div>
         </div>
     </footer>
 
-    <!-- Three.js WebGL Library -->
+    <!-- ==================== IN-PAGE INTERACTIVE DEVICE PREVIEW MODAL ==================== -->
+    <div class="preview-modal" id="preview-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="pm-title">
+        <div class="pm-backdrop" id="pm-backdrop"></div>
+        <div class="pm-dialog">
+            <div class="pm-topbar">
+                <div class="pm-meta">
+                    <div class="browser-dots"><span></span><span></span><span></span></div>
+                    <strong id="pm-title">Project Preview</strong>
+                    <span class="pm-tag" id="pm-tag">GHL Website</span>
+                </div>
+
+                <div class="pm-devices" role="group" aria-label="Viewport Size">
+                    <button type="button" class="pm-dev-btn active" data-viewport="desktop" title="Desktop View">
+                        <i class="fa-solid fa-desktop"></i> <span>Desktop</span>
+                    </button>
+                    <button type="button" class="pm-dev-btn" data-viewport="tablet" title="Tablet View">
+                        <i class="fa-solid fa-tablet-screen-button"></i> <span>Tablet</span>
+                    </button>
+                    <button type="button" class="pm-dev-btn" data-viewport="mobile" title="Mobile View">
+                        <i class="fa-solid fa-mobile-screen"></i> <span>Mobile</span>
+                    </button>
+                </div>
+
+                <div class="pm-actions">
+                    <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm" id="pm-external-link">
+                        <span>Open Live URL</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                    <button type="button" class="pm-close" id="pm-close" aria-label="Close Preview">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="pm-stage" data-lenis-prevent>
+                <div class="pm-viewport-frame vp-desktop" id="pm-viewport-frame">
+                    <div class="pm-loader" id="pm-loader">
+                        <span class="logo-prism"></span>
+                        <span>Connecting live deployment...</span>
+                    </div>
+                    <iframe id="pm-iframe" title="Live Website Preview"></iframe>
+                    <div class="pm-fallback" id="pm-fallback">
+                        <img id="pm-fallback-img" src="" alt="Project High-Res Capture">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== MINIMALIST GHL AI ASSISTANT DEMO WIDGET ==================== -->
+    <div class="ai-widget-wrap" id="ai-widget-wrap">
+        <div class="ai-chat-panel" id="ai-chat-panel" aria-hidden="true">
+            <div class="ai-chat-header">
+                <div class="ai-head-left">
+                    <div class="ai-avatar"><i class="fa-solid fa-robot"></i></div>
+                    <div>
+                        <strong>Rao's GHL AI Assistant</strong>
+                        <span><i class="status-emerald"></i> Live Workflow Demo</span>
+                    </div>
+                </div>
+                <button type="button" class="ai-close-btn" id="ai-close-btn" aria-label="Close AI Assistant">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="ai-chat-messages" id="ai-chat-messages" data-lenis-prevent>
+                <div class="ai-msg bot">
+                    Hi! 👋 I'm a live demo of the conversational qualification flows Rao builds inside GoHighLevel. Ask me anything about his services, stack, or availability!
+                </div>
+            </div>
+
+            <div class="ai-quick-prompts" id="ai-quick-prompts">
+                <button type="button" class="ai-prompt-chip" data-q="What GHL automations & workflows do you build?">GHL Workflows?</button>
+                <button type="button" class="ai-prompt-chip" data-q="Do you work white-label with agencies?">White-Label?</button>
+                <button type="button" class="ai-prompt-chip" data-q="Tell me about WordPress & WooCommerce builds.">WordPress / Woo?</button>
+                <button type="button" class="ai-prompt-chip" data-q="How can we start a project?">Hire Rao</button>
+            </div>
+
+            <form class="ai-chat-input-row" id="ai-chat-form">
+                <label for="ai-user-input" class="sr-only">Ask Rao's AI Assistant</label>
+                <input type="text" id="ai-user-input" placeholder="Ask about GHL, WordPress, timelines..." autocomplete="off">
+                <button type="submit" aria-label="Send message"><i class="fa-solid fa-paper-plane"></i></button>
+            </form>
+        </div>
+
+        <button type="button" class="ai-launcher-pill magnetic" id="ai-launcher-pill" aria-label="Open Rao's AI Assistant">
+            <span class="ai-spark"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
+            <span class="ai-pill-label">Ask Rao's AI</span>
+        </button>
+    </div>
+
+    <!-- Libraries: Three.js WebGL + Lenis Smooth Inertia Scroll -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <!-- Portfolio Interactive & 3D Engine -->
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+    <!-- Portfolio V2 Engine -->
     <script src="main.js"></script>
 </body>
 </html>
