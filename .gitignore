@@ -1,0 +1,5 @@
+# Exclude local media downloads & scratch scrapes
+*.mp4
+portfolio.html
+.DS_Store
+Thumbs.db
