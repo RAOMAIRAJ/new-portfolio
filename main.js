@@ -1,5 +1,5 @@
 /* ==========================================================================
-   RAO.DEV V2 — LUXURY 3D, LENIS, WORKFLOW LAB, ROI SLIDER, PREVIEW & AI ENGINE
+   RAO.DEV V3 — HIGHLEVEL GOLD EXECUTIVE 3D, VIDEO TESTIMONIALS & AI ENGINE
    ========================================================================== */
 
 let lenisInstance = null;
@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initComparisonSlider();
     initPortfolioFilters();
     initDevicePreviewModal();
+    initVideoTestimonials();
     init3DTiltCards();
     initScrollRevealsAndCounters();
     initAIAssistant();
@@ -32,9 +33,9 @@ function initPreloader() {
 
     let progress = 0;
     const stages = [
-        'MOUNTING 3D WEBGL STAGE...',
+        'MOUNTING 3D HIGHLEVEL STAGE...',
         'LOADING GHL WORKFLOW ENGINE...',
-        'PREPARING LIVE CLIENT VAULT...',
+        'SYNCING CLIENT VIDEO VAULT...',
         'READY // RAO.DEV'
     ];
 
@@ -89,7 +90,6 @@ function initSmoothScroll() {
         }
         requestAnimationFrame(raf);
 
-        // Smooth anchor navigation with Lenis
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', (e) => {
                 const targetId = anchor.getAttribute('href');
@@ -133,7 +133,7 @@ function initCustomCursor() {
     }
     requestAnimationFrame(tick);
 
-    const interactiveSelector = 'a, button, input, textarea, .wf-node, .comp-handle, .project-3d-card';
+    const interactiveSelector = 'a, button, input, textarea, video, .wf-node, .project-3d-card, .video-testi-card';
     document.addEventListener('mouseover', (e) => {
         if (e.target.closest(interactiveSelector)) {
             ring.classList.add('is-hovering');
@@ -167,7 +167,6 @@ function initNavigation() {
     const mobileDrawer = document.getElementById('mobile-drawer');
     const navLinks = document.querySelectorAll('.nav-link');
     const sections = document.querySelectorAll('main section[id]');
-    const zoneLabel = document.getElementById('scene-zone-label');
 
     if (mobileToggle && mobileDrawer) {
         mobileToggle.addEventListener('click', () => mobileDrawer.classList.toggle('open'));
@@ -175,12 +174,6 @@ function initNavigation() {
             a.addEventListener('click', () => mobileDrawer.classList.remove('open'));
         });
     }
-
-    const modeLabels = {
-        core: '3D STAGE // REACTOR CORE',
-        neural: '3D STAGE // NEURAL WORKFLOW',
-        vault: '3D STAGE // PRODUCTION VAULT'
-    };
 
     window.addEventListener('scroll', () => {
         const y = window.scrollY;
@@ -197,9 +190,6 @@ function initNavigation() {
         });
 
         currentSceneMode = detectedMode;
-        if (zoneLabel && modeLabels[detectedMode]) {
-            zoneLabel.textContent = modeLabels[detectedMode];
-        }
 
         navLinks.forEach(link => {
             link.classList.toggle('active', link.getAttribute('href') === `#${activeId}`);
@@ -214,9 +204,9 @@ function initKineticHeadline() {
 
     const phrases = [
         'GHL Ecosystems',
-        'AI Workflows',
-        'WordPress Sites',
-        'Revenue Engines'
+        'AI Chatbots',
+        'Sales Funnels',
+        'WordPress Sites'
     ];
     const glyphs = 'ABCDEFGHJKLMNPQRSTUVWXYZ0123456789';
     let index = 0;
@@ -261,16 +251,16 @@ function initGlobalWebGL() {
     renderer.setSize(window.innerWidth, window.innerHeight);
 
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x05050b, 0.02);
+    scene.fog = new THREE.FogExp2(0x050507, 0.02);
 
     const camera = new THREE.PerspectiveCamera(58, window.innerWidth / window.innerHeight, 0.1, 160);
     camera.position.set(0, 1.5, 24);
 
-    // Subtle Horizon Grid (Indigo/Violet)
-    const gridHelper = new THREE.GridHelper(130, 52, 0x6d28d9, 0x161430);
+    // Subtle Horizon Grid (Dark Bronze / Gold)
+    const gridHelper = new THREE.GridHelper(130, 52, 0xb45309, 0x1c1508);
     gridHelper.position.y = -12;
     gridHelper.material.transparent = true;
-    gridHelper.material.opacity = 0.22;
+    gridHelper.material.opacity = 0.2;
     scene.add(gridHelper);
 
     // Background Scroll-Morphing Ambient Wireframe Sculpture
@@ -280,22 +270,22 @@ function initGlobalWebGL() {
 
     const torusKnotGeo = new THREE.TorusKnotGeometry(5.5, 1.2, 110, 14);
     const torusKnotMat = new THREE.MeshBasicMaterial({
-        color: 0x7c3aed,
+        color: 0xf59e0b,
         wireframe: true,
         transparent: true,
-        opacity: 0.045
+        opacity: 0.038
     });
     const morphMesh = new THREE.Mesh(torusKnotGeo, torusKnotMat);
     morphGroup.add(morphMesh);
 
-    // Deep-Space Starfield (Violet + Lavender + Sky Cyan)
-    const count = 950;
+    // Deep-Space Starfield (HighLevel Gold + Champagne + Sky Blue)
+    const count = 920;
     const positions = new Float32Array(count * 3);
     const colors = new Float32Array(count * 3);
 
-    const cViolet = new THREE.Color(0x8b5cf6);
+    const cGold = new THREE.Color(0xfbbf24);
     const cCyan = new THREE.Color(0x38bdf8);
-    const cSoft = new THREE.Color(0xc4b5fd);
+    const cChampagne = new THREE.Color(0xfde68a);
 
     for (let i = 0; i < count; i++) {
         const i3 = i * 3;
@@ -304,7 +294,7 @@ function initGlobalWebGL() {
         positions[i3 + 2] = (Math.random() - 0.5) * 80;
 
         const r = Math.random();
-        const picked = r < 0.5 ? cViolet : (r < 0.82 ? cCyan : cSoft);
+        const picked = r < 0.52 ? cGold : (r < 0.8 ? cChampagne : cCyan);
         colors[i3] = picked.r;
         colors[i3 + 1] = picked.g;
         colors[i3 + 2] = picked.b;
@@ -318,7 +308,7 @@ function initGlobalWebGL() {
         size: 0.13,
         vertexColors: true,
         transparent: true,
-        opacity: 0.58,
+        opacity: 0.54,
         blending: THREE.AdditiveBlending
     });
 
@@ -347,25 +337,24 @@ function initGlobalWebGL() {
     const clock = new THREE.Clock();
     let targetMorphScale = 1;
     let targetCamZ = 24;
-    let targetMorphOpacity = 0.04;
+    let targetMorphOpacity = 0.036;
 
     function animate() {
         const elapsed = clock.getElapsedTime();
         const scrollFactor = scrollYVal * 0.004;
 
-        // Scroll-driven state morphing (subtle & balanced)
         if (currentSceneMode === 'core') {
             targetMorphScale = 0.9;
             targetCamZ = 24;
-            targetMorphOpacity = 0.035;
+            targetMorphOpacity = 0.032;
         } else if (currentSceneMode === 'neural') {
             targetMorphScale = 1.35;
             targetCamZ = 19.5;
-            targetMorphOpacity = 0.075;
+            targetMorphOpacity = 0.068;
         } else {
             targetMorphScale = 1.05;
             targetCamZ = 22;
-            targetMorphOpacity = 0.04;
+            targetMorphOpacity = 0.038;
         }
 
         const currentScale = morphGroup.scale.x + (targetMorphScale - morphGroup.scale.x) * 0.035;
@@ -390,7 +379,7 @@ function initGlobalWebGL() {
     animate();
 }
 
-/* ==================== 7. HERO 3D CRYSTAL GYROSCOPE CORE ==================== */
+/* ==================== 7. HERO 3D HIGHLEVEL GOLD GYROSCOPE CORE ==================== */
 function initHero3DCore() {
     const canvas = document.getElementById('hero-canvas');
     const stage = document.getElementById('hero-3d-stage');
@@ -416,49 +405,49 @@ function initHero3DCore() {
         new ResizeObserver(resizeHero).observe(stage);
     }
 
-    // Luxury Violet + Sky Cyan Studio Lighting
+    // Luxury Liquid Gold + HighLevel Sky Blue Studio Lighting
     scene.add(new THREE.AmbientLight(0xffffff, 0.55));
 
-    const violetLight = new THREE.PointLight(0x8b5cf6, 3.2, 20);
-    violetLight.position.set(4, 4, 5);
-    scene.add(violetLight);
+    const goldLight = new THREE.PointLight(0xf59e0b, 3.4, 20);
+    goldLight.position.set(4, 4, 5);
+    scene.add(goldLight);
 
-    const cyanLight = new THREE.PointLight(0x38bdf8, 2.4, 20);
+    const cyanLight = new THREE.PointLight(0x38bdf8, 2.2, 20);
     cyanLight.position.set(-4, -3, 5);
     scene.add(cyanLight);
 
     const coreGroup = new THREE.Group();
     scene.add(coreGroup);
 
-    // 1. Faceted Deep Indigo Crystal Core
+    // 1. Faceted Obsidian-Bronze Crystal Core
     const innerGeo = new THREE.IcosahedronGeometry(1.16, 1);
     const innerMat = new THREE.MeshStandardMaterial({
-        color: 0x0d0e24,
-        roughness: 0.2,
-        metalness: 0.9,
+        color: 0x171209,
+        roughness: 0.22,
+        metalness: 0.92,
         flatShading: true,
-        emissive: 0x1e1042,
+        emissive: 0x3b2304,
         emissiveIntensity: 0.75
     });
     const innerMesh = new THREE.Mesh(innerGeo, innerMat);
     coreGroup.add(innerMesh);
 
-    // 2. Precision Wireframe Exoskeleton
+    // 2. Molten Gold Wireframe Exoskeleton
     const wireGeo = new THREE.IcosahedronGeometry(1.25, 1);
     const wireMat = new THREE.MeshBasicMaterial({
-        color: 0xa78bfa,
+        color: 0xfbbf24,
         wireframe: true,
         transparent: true,
-        opacity: 0.65
+        opacity: 0.7
     });
     const wireMesh = new THREE.Mesh(wireGeo, wireMat);
     coreGroup.add(wireMesh);
 
-    // 3. Concentric Gyroscope Rings
+    // 3. Concentric Gyroscope Rings (Official HighLevel 3-Arrow Colors: Gold, Blue, Emerald)
     const ringConfigs = [
-        { radius: 1.84, tube: 0.016, color: 0x8b5cf6, opacity: 0.78, rx: 1.1, ry: 0.3 },
-        { radius: 2.26, tube: 0.013, color: 0x38bdf8, opacity: 0.56, rx: -0.7, ry: 0.9 },
-        { radius: 2.66, tube: 0.011, color: 0xc4b5fd, opacity: 0.34, rx: 0.4, ry: -1.1 }
+        { radius: 1.84, tube: 0.017, color: 0xfbbf24, opacity: 0.82, rx: 1.1, ry: 0.3 },
+        { radius: 2.26, tube: 0.014, color: 0x38bdf8, opacity: 0.58, rx: -0.7, ry: 0.9 },
+        { radius: 2.66, tube: 0.012, color: 0x22c55e, opacity: 0.44, rx: 0.4, ry: -1.1 }
     ];
 
     const rings = ringConfigs.map(cfg => {
@@ -541,7 +530,7 @@ function initWorkflowSimulator() {
 
     const blueprints = {
         speed: {
-            uri: 'workflow://ghl/ai-speed-to-lead.v2',
+            uri: 'workflow://ghl/ai-speed-to-lead.v3',
             kpi1: ['0.4 sec', 'Instant First Touch'],
             kpi2: ['+340%', 'Calendar Booking Lift'],
             nodes: [
@@ -571,7 +560,7 @@ function initWorkflowSimulator() {
                 { type: 'Goal', cls: '', icon: 'fa-circle-check', title: 'Quote Scheduled', desc: 'Booking link confirmed' }
             ],
             logs: [
-                ['00.05s', 'INFO', 'Inbound call missed on tracking number (+61-4XX)'],
+                ['00.05s', 'INFO', 'Inbound call missed on tracking number (+1-555-019)'],
                 ['00.24s', 'OK', 'Instant SMS sent: "Sorry we missed your call..."'],
                 ['00.68s', 'INFO', 'AI Receptionist parsed reply: "Need urgent quote"'],
                 ['00.95s', 'OK', 'Opportunity assigned to on-duty specialist'],
@@ -598,12 +587,12 @@ function initWorkflowSimulator() {
             ]
         },
         wpsync: {
-            uri: 'workflow://bridge/wordpress-woo-to-ghl',
+            uri: 'workflow://bridge/zapier-make-wp-to-ghl',
             kpi1: ['Real-Time', 'Webhook Payload Sync'],
             kpi2: ['Zero', 'Manual CSV Exports'],
             nodes: [
                 { type: 'WP Trigger', cls: 'type-ai', icon: 'fa-wordpress-simple', title: 'WP / Woo Event', desc: 'Order or Elementor form' },
-                { type: 'Webhook', cls: '', icon: 'fa-plug', title: 'Inbound Hook', desc: 'JSON payload validation' },
+                { type: 'Webhook', cls: '', icon: 'fa-puzzle-piece', title: 'Zapier / Make', desc: 'JSON payload validation' },
                 { type: 'Mapper', cls: 'type-cond', icon: 'fa-database', title: 'Custom Fields', desc: 'Map SKU, LTV & UTM tags' },
                 { type: 'Automation', cls: '', icon: 'fa-envelope-open-text', title: 'VIP Onboarding', desc: 'Order SMS + Email sequence' },
                 { type: 'Goal', cls: '', icon: 'fa-chart-line', title: 'Upsell & LTV', desc: '30-day reorder campaign' }
@@ -783,7 +772,7 @@ function initComparisonSlider() {
     function updateROI() {
         const leads = parseInt(slider.value, 10) || 200;
         const manualCalls = Math.round(leads * 0.06);
-        const autoCalls = Math.round(leads * 0.21);
+        const autoCalls = Math.round(leads * 0.28);
         const hoursSaved = Math.max(8, Math.round(leads * 0.165));
 
         if (volVal) volVal.textContent = `${leads.toLocaleString()} Leads / mo`;
@@ -846,6 +835,11 @@ function initDevicePreviewModal() {
     let loadTimeout = null;
 
     function openPreview({ title, url, img, tag }) {
+        // Pause any playing testimonial videos while modal is open
+        document.querySelectorAll('.vt-video').forEach(v => {
+            if (!v.paused) v.pause();
+        });
+
         titleEl.textContent = title;
         tagEl.textContent = tag || 'Live Build';
         externalLink.href = url;
@@ -855,7 +849,6 @@ function initDevicePreviewModal() {
         modal.setAttribute('aria-hidden', 'false');
         if (lenisInstance) lenisInstance.stop();
 
-        // Check if HTTPS page trying to embed HTTP iframe (Mixed Content protection)
         const isMixedContent = window.location.protocol === 'https:' && url.startsWith('http://');
 
         if (isMixedContent) {
@@ -916,12 +909,71 @@ function initDevicePreviewModal() {
     });
 }
 
-/* ==================== 12. 3D TILT & SPECULAR GLARE ==================== */
+/* ==================== 12. REAL CLIENT VIDEO TESTIMONIALS PLAYER ==================== */
+function initVideoTestimonials() {
+    const shells = document.querySelectorAll('[data-video-card]');
+    if (!shells.length) return;
+
+    shells.forEach(shell => {
+        const video = shell.querySelector('.vt-video');
+        const overlay = shell.querySelector('.vt-poster-overlay');
+        const playBtn = shell.querySelector('.vt-play-btn');
+        const parentCard = shell.closest('.video-testi-card');
+        if (!video || !overlay) return;
+
+        function startPlayback() {
+            // Pause any other playing testimonial video first
+            shells.forEach(otherShell => {
+                if (otherShell !== shell) {
+                    const otherVid = otherShell.querySelector('.vt-video');
+                    if (otherVid && !otherVid.paused) {
+                        otherVid.pause();
+                    }
+                }
+            });
+
+            shell.classList.add('playing');
+            if (parentCard) parentCard.classList.add('is-playing');
+            video.controls = true;
+            video.play().catch(() => {});
+        }
+
+        if (playBtn) {
+            playBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                startPlayback();
+            });
+        }
+
+        overlay.addEventListener('click', startPlayback);
+
+        video.addEventListener('ended', () => {
+            video.controls = false;
+            video.currentTime = 0;
+            shell.classList.remove('playing');
+            if (parentCard) parentCard.classList.remove('is-playing');
+        });
+
+        video.addEventListener('pause', () => {
+            if (parentCard && video.ended) {
+                parentCard.classList.remove('is-playing');
+            }
+        });
+    });
+}
+
+/* ==================== 13. 3D TILT & SPECULAR GLARE ==================== */
 function init3DTiltCards() {
     if (window.matchMedia('(hover: none), (pointer: coarse)').matches) return;
 
     document.querySelectorAll('.tilt-3d').forEach(card => {
         card.addEventListener('mousemove', (e) => {
+            // Skip tilt if a video inside this card is actively playing so video controls stay rock-steady
+            if (card.classList.contains('is-playing')) {
+                card.style.transform = 'none';
+                return;
+            }
+
             const rect = card.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
@@ -929,8 +981,8 @@ function init3DTiltCards() {
             const pctX = (x / rect.width) * 100;
             const pctY = (y / rect.height) * 100;
 
-            const rotY = ((x - rect.width / 2) / (rect.width / 2)) * 5.2;
-            const rotX = ((rect.height / 2 - y) / (rect.height / 2)) * 5.2;
+            const rotY = ((x - rect.width / 2) / (rect.width / 2)) * 4.6;
+            const rotX = ((rect.height / 2 - y) / (rect.height / 2)) * 4.6;
 
             card.style.setProperty('--glare-x', `${pctX}%`);
             card.style.setProperty('--glare-y', `${pctY}%`);
@@ -945,7 +997,7 @@ function init3DTiltCards() {
     });
 }
 
-/* ==================== 13. SCROLL REVEALS & COUNTERS ==================== */
+/* ==================== 14. SCROLL REVEALS & COUNTERS ==================== */
 function initScrollRevealsAndCounters() {
     const revealEls = document.querySelectorAll('.reveal-up, .reveal-scale');
     const revObs = new IntersectionObserver((entries) => {
@@ -955,7 +1007,7 @@ function initScrollRevealsAndCounters() {
                 revObs.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.12 });
+    }, { threshold: 0.1 });
 
     revealEls.forEach(el => revObs.observe(el));
 
@@ -982,7 +1034,7 @@ function initScrollRevealsAndCounters() {
     counters.forEach(c => countObs.observe(c));
 }
 
-/* ==================== 14. GHL AI ASSISTANT DEMO WIDGET ==================== */
+/* ==================== 15. GHL AI ASSISTANT DEMO WIDGET ==================== */
 function initAIAssistant() {
     const pill = document.getElementById('ai-launcher-pill');
     const panel = document.getElementById('ai-chat-panel');
@@ -1015,18 +1067,21 @@ function initAIAssistant() {
     function getBotResponse(q) {
         const text = q.toLowerCase();
         if (text.includes('white') || text.includes('agency') || text.includes('retainer')) {
-            return 'Yes! Rao partners white-label with US, UK & Australian agencies — handling GHL websites, snapshot builds, complex workflow debugging, and WordPress sites directly inside your client sub-accounts under strict NDA.';
+            return 'Yes! With 3+ years of multi-industry experience, Rao partners white-label with US, UK & Australian agencies — handling GHL websites, snapshots, AI chatbots, and WordPress builds directly under your brand.';
         }
-        if (text.includes('workflow') || text.includes('automation') || text.includes('ghl') || text.includes('bot')) {
-            return 'Rao builds full GoHighLevel systems: AI Speed-to-Lead SMS bots, Missed-Call Text-Back, 5-Star Google Review funnels, A2P 10DLC setups, and custom REST Webhook integrations.';
+        if (text.includes('what') || text.includes('service') || text.includes('offer') || text.includes('ghl') || text.includes('bot')) {
+            return 'Rao covers all 8 pillars: GHL Setup & CRM, AI Chatbots, Funnels & Websites, Lead Gen & Nurturing, Workflow Automation, Pipeline & Appointments, Email/SMS Automation, and Zapier/Make/Webhooks!';
         }
-        if (text.includes('wordpress') || text.includes('woo') || text.includes('ecommerce')) {
-            return 'Rao develops custom WordPress & WooCommerce websites (like G&K Accountants, Ultra Neat Cleaning & World Turns Left) with custom CSS/JS, fast load times, and real-time GHL CRM sync.';
+        if (text.includes('zapier') || text.includes('make') || text.includes('webhook') || text.includes('integration') || text.includes('wordpress') || text.includes('woo')) {
+            return 'Rao connects WordPress, WooCommerce, Stripe, Slack, and custom REST APIs directly into GoHighLevel via Zapier, Make, and custom JSON webhooks — zero manual CSV work.';
+        }
+        if (text.includes('review') || text.includes('testimonial') || text.includes('client')) {
+            return 'Check out the Testimonials section! US business owners Diane & Shanna shared unscripted video reviews praising Rao for working faster than they can send content and reading their minds on GoHighLevel.';
         }
         if (text.includes('start') || text.includes('hire') || text.includes('price') || text.includes('call') || text.includes('contact')) {
-            return 'You can start right away! Email Rao at mmairajsa123@gmail.com or fill out the Project Brief in the Contact section below for a fast response within a few hours.';
+            return 'Ready when you are! Email Rao directly at mmairajsa123@gmail.com or submit your brief in the Contact section below — he is open to new projects, collaborations & retainers.';
         }
-        return 'Rao specializes in custom-coded GoHighLevel websites, AI CRM workflows, and bespoke WordPress/WooCommerce platforms. Would you like to explore his live projects or send a project brief below?';
+        return 'Rao is a GoHighLevel Expert & Digital Automation Specialist (3+ yrs experience) helping businesses build smarter systems & close more deals. Want to watch client video reviews or send a project brief below?';
     }
 
     function appendMessage(role, content) {
@@ -1063,7 +1118,7 @@ function initAIAssistant() {
     }
 }
 
-/* ==================== 15. CONTACT SYSTEM & WHITE-LABEL PREFILL ==================== */
+/* ==================== 16. CONTACT SYSTEM & WHITE-LABEL PREFILL ==================== */
 function initContactSystem() {
     const chips = document.querySelectorAll('.svc-chip');
     const hiddenInput = document.getElementById('selected-service');
